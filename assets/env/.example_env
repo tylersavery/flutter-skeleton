@@ -1,0 +1,6 @@
+ENVIRONMENT_NAME=example
+STORAGE_PREFIX=storage
+API_BASE_URL=https://domain.com/api
+DEBUG=true
+DEBUG_LOGIN_EMAIL=me@domain.com
+DEBUG_LOGIN_PASSWORD=MyPassword
