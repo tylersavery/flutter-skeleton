@@ -21,7 +21,7 @@ class AuthButton extends BaseComponent {
         if (_isAuthenticated) {
           AutoRouter.of(context).push(const SettingsScreenRoute());
         } else {
-          AutoRouter.of(context).push(LoginScreenRoute());
+          AutoRouter.of(context).push(const LoginScreenRoute());
         }
       },
       child: Text(

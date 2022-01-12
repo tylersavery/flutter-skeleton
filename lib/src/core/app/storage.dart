@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class Storage {
   static const THEME_KEY = "THEME";
+  static const LANGUAGE_KEY = "LANGUAGE";
 
   bool isInitialized = false;
 

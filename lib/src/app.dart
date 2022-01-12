@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_skeleton/src/feature/locale/locale_provider.dart';
 import "../generated/l10n.dart";
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,8 +34,8 @@ class App extends ConsumerWidget {
     return MaterialApp.router(
       restorationScopeId: 'app',
       debugShowCheckedModeBanner: false,
-
       scaffoldMessengerKey: rootScaffoldMessengerKey,
+      locale: ref.watch(localeProvider),
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -49,7 +50,6 @@ class App extends ConsumerWidget {
           appRouter.defaultRouteParser(includePrefixMatches: true),
       routerDelegate: AutoRouterDelegate(
         appRouter,
-        // Provide an AutoRouteObserver instance
         navigatorObservers: () => [AutoRouteObserver()],
       ),
       builder: (context, widget) => ResponsiveWrapper.builder(
@@ -57,7 +57,6 @@ class App extends ConsumerWidget {
         defaultScale: true,
         breakpoints: BreakPoints.breakpoints,
       ),
-      // initialRoute: '/home',
     );
   }
 }

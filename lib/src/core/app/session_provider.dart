@@ -29,14 +29,16 @@ class SessionProvider extends StateNotifier<SessionModel> {
   final Reader read;
   Timer? _refreshTimer;
 
+  bool isInitialized = false;
+
   static const _initial = SessionModel();
 
   SessionProvider(this.read, [SessionModel sessionModel = _initial])
       : super(sessionModel) {
-    _init();
+    init();
   }
 
-  Future<void> _init() async {
+  Future<void> init() async {
     final tokenString = singleton<Storage>().getString(Token.AUTH_TOKEN_KEY);
     if (tokenString != null) {
       final token = Token.fromJson(jsonDecode(tokenString));
@@ -54,6 +56,8 @@ class SessionProvider extends StateNotifier<SessionModel> {
       }
       await setToken(token);
     }
+
+    isInitialized = true;
   }
 
   Future<Token?> _refreshToken(Token token) async {

@@ -22,7 +22,7 @@ class AuthLandingScreen extends BaseScreen {
         children: [
           ElevatedButton(
               onPressed: () {
-                AutoRouter.of(context).push(LoginScreenRoute());
+                AutoRouter.of(context).push(const LoginScreenRoute());
               },
               child: const Text("Login")),
           const SizedBox(

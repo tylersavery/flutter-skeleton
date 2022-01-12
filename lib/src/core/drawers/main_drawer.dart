@@ -51,7 +51,7 @@ class MainDrawer extends BaseComponent {
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () {
                   Navigator.of(context).pop();
-                  AutoRouter.of(context).replace(LoginScreenRoute());
+                  AutoRouter.of(context).replace(const LoginScreenRoute());
                 },
               )
           ],
