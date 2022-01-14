@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_skeleton/generated/l10n.dart';
+import 'package:flutter_skeleton/src/app.dart';
 import 'package:flutter_skeleton/src/core/app/singletons.dart';
 import 'package:flutter_skeleton/src/core/app/storage.dart';
 
@@ -61,6 +62,23 @@ class LocaleProvider extends StateNotifier<Locale> {
 
   void saveLocaleToStorage(Locale locale) {
     singleton<Storage>().setString(Storage.LANGUAGE_KEY, locale.toString());
+  }
+
+  static String localeToLabel(Locale locale, [localize = false]) {
+    final str = locale.toString();
+
+    final context = rootNavigatorKey.currentContext!;
+
+    switch (str) {
+      case 'en':
+        return localize ? S.of(context).languageEnglish : "English";
+      case 'es_US':
+        return localize ? S.of(context).languageSpanishUS : "Español (EE. UU.)";
+      case 'ja_JP':
+        return localize ? S.of(context).languageJapanese : "日本";
+      default:
+        return str;
+    }
   }
 }
 

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_skeleton/src/core/app/session_provider.dart';
 import 'package:flutter_skeleton/src/feature/locale/locale_provider.dart';
 import "../generated/l10n.dart";
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -52,11 +53,24 @@ class App extends ConsumerWidget {
         appRouter,
         navigatorObservers: () => [AutoRouteObserver()],
       ),
-      builder: (context, widget) => ResponsiveWrapper.builder(
-        BouncingScrollWrapper.builder(context, widget!),
-        defaultScale: true,
-        breakpoints: BreakPoints.breakpoints,
-      ),
+      builder: (context, widget) {
+        // ref.watch(sessionProvider);
+        // final isReady = ref.read(sessionProvider).ready;
+
+        // if (!isReady) {
+        //   return const Scaffold(
+        //     body: Center(
+        //       child: CircularProgressIndicator(),
+        //     ),
+        //   );
+        // }
+
+        return ResponsiveWrapper.builder(
+          BouncingScrollWrapper.builder(context, widget!),
+          defaultScale: true,
+          breakpoints: BreakPoints.breakpoints,
+        );
+      },
     );
   }
 }

@@ -17,19 +17,29 @@ class SessionModel {
   final Token? token;
   final User? user;
   final bool isAuthenticated;
+  final bool ready;
 
   const SessionModel({
     this.token,
     this.isAuthenticated = false,
     this.user,
+    this.ready = false,
   });
+
+  SessionModel copyWith(
+      {Token? token, User? user, bool? isAuthenticated, bool? ready}) {
+    return SessionModel(
+      token: token ?? this.token,
+      isAuthenticated: isAuthenticated ?? this.isAuthenticated,
+      user: user ?? this.user,
+      ready: ready ?? this.ready,
+    );
+  }
 }
 
 class SessionProvider extends StateNotifier<SessionModel> {
   final Reader read;
   Timer? _refreshTimer;
-
-  bool isInitialized = false;
 
   static const _initial = SessionModel();
 
@@ -44,9 +54,7 @@ class SessionProvider extends StateNotifier<SessionModel> {
       final token = Token.fromJson(jsonDecode(tokenString));
 
       if (token.accessTokenIsExpired()) {
-        if (token.refreshTokenIsExpired()) {
-          return;
-        } else {
+        if (!token.refreshTokenIsExpired()) {
           final refreshedToken = await _refreshToken(token);
           if (refreshedToken != null) {
             await setToken(refreshedToken);
@@ -55,9 +63,10 @@ class SessionProvider extends StateNotifier<SessionModel> {
         }
       }
       await setToken(token);
+      return;
     }
 
-    isInitialized = true;
+    state = state.copyWith(ready: true, isAuthenticated: false);
   }
 
   Future<Token?> _refreshToken(Token token) async {
@@ -69,10 +78,11 @@ class SessionProvider extends StateNotifier<SessionModel> {
 
     final user = await UserService().me();
 
-    state = SessionModel(
+    state = state.copyWith(
       token: token,
       isAuthenticated: true,
       user: user,
+      ready: true,
     );
 
     int secondsUntilExpiry = token.secondsUntilExpiry();
@@ -102,7 +112,12 @@ class SessionProvider extends StateNotifier<SessionModel> {
       return false;
     }
 
-    state = _initial;
+    state = state.copyWith(
+      ready: true,
+      isAuthenticated: false,
+      user: null,
+      token: null,
+    );
     singleton<Storage>().remove(Token.AUTH_TOKEN_KEY);
 
     final context = rootNavigatorKey.currentContext!;

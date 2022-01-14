@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_skeleton/generated/l10n.dart';
 import 'package:flutter_skeleton/src/core/app_router.gr.dart';
 import 'package:flutter_skeleton/src/core/base_component.dart';
 
@@ -21,18 +22,18 @@ class DashboardContainer extends BaseComponent {
         return BottomNavigationBar(
           currentIndex: tabsRouter.activeIndex,
           onTap: tabsRouter.setActiveIndex,
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              label: 'Home',
-              icon: Icon(Icons.home),
+              label: S.of(context).homeScreenTitle,
+              icon: const Icon(Icons.home),
             ),
             BottomNavigationBarItem(
-              label: 'Categories',
-              icon: Icon(Icons.category),
+              label: S.of(context).categoriesScreenTitle,
+              icon: const Icon(Icons.category),
             ),
             BottomNavigationBarItem(
-              label: 'Users',
-              icon: Icon(Icons.group),
+              label: S.of(context).usersScreenTitle,
+              icon: const Icon(Icons.group),
             ),
           ],
         );
@@ -66,7 +67,7 @@ class DashboardContainer extends BaseComponent {
               child: Row(
                 children: [
                   _DesktopNavigationButton(
-                    title: "Home",
+                    title: S.of(context).homeScreenTitle,
                     icon: Icons.home,
                     isActive: tabsRouter.activeIndex == 0,
                     onPressed: () {
@@ -74,7 +75,7 @@ class DashboardContainer extends BaseComponent {
                     },
                   ),
                   _DesktopNavigationButton(
-                    title: "Categories",
+                    title: S.of(context).categoriesScreenTitle,
                     icon: Icons.category,
                     isActive: tabsRouter.activeIndex == 1,
                     onPressed: () {
@@ -82,7 +83,7 @@ class DashboardContainer extends BaseComponent {
                     },
                   ),
                   _DesktopNavigationButton(
-                    title: "Users",
+                    title: S.of(context).usersScreenTitle,
                     icon: Icons.group,
                     isActive: tabsRouter.activeIndex == 2,
                     onPressed: () {

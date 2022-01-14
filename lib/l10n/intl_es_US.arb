@@ -1,5 +1,11 @@
 {
   "homeScreenTitle": "Casa",
   "edit": "Editar",
-  "language": "Idioma"
+  "language": "Idioma",
+  "categoriesScreenTitle": "Categories",
+  "usersScreenTitle": "Users",
+  "languageEnglish": "English",
+  "languageSpanishUS": "Spanish (US)",
+  "languageJapanese": "Japanese",
+  "settingsScreenTitle": "Ajustes"
 }

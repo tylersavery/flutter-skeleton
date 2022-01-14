@@ -79,6 +79,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Categories`
+  String get categoriesScreenTitle {
+    return Intl.message(
+      'Categories',
+      name: 'categoriesScreenTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Users`
+  String get usersScreenTitle {
+    return Intl.message(
+      'Users',
+      name: 'usersScreenTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get languageEnglish {
+    return Intl.message(
+      'English',
+      name: 'languageEnglish',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Spanish (US)`
+  String get languageSpanishUS {
+    return Intl.message(
+      'Spanish (US)',
+      name: 'languageSpanishUS',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Japanese`
+  String get languageJapanese {
+    return Intl.message(
+      'Japanese',
+      name: 'languageJapanese',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settingsScreenTitle {
+    return Intl.message(
+      'Settings',
+      name: 'settingsScreenTitle',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -88,6 +148,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'es', countryCode: 'US'),
+      Locale.fromSubtags(languageCode: 'ja', countryCode: 'JP'),
     ];
   }
 

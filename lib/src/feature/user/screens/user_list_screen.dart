@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_skeleton/generated/l10n.dart';
 import 'package:flutter_skeleton/src/core/base_screen.dart';
 import 'package:flutter_skeleton/src/feature/auth/components/auth_button.dart';
 import 'package:flutter_skeleton/src/feature/user/components/user_list.dart';
@@ -10,7 +11,7 @@ class UserListScreen extends BaseScreen {
   @override
   AppBar? appBar(BuildContext context, WidgetRef ref) {
     return AppBar(
-      title: const Text("Users"),
+      title: Text(S.of(context).usersScreenTitle),
       actions: const [AuthButton()],
     );
   }

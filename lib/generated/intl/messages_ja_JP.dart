@@ -1,5 +1,5 @@
 // DO NOT EDIT. This is code generated via package:intl/generate_localized.dart
-// This is a library that provides messages for a es_US locale. All the
+// This is a library that provides messages for a ja_JP locale. All the
 // messages from the main program should be duplicated here with the same
 // function name.
 
@@ -18,20 +18,19 @@ final messages = new MessageLookup();
 typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
-  String get localeName => 'es_US';
+  String get localeName => 'ja_JP';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "categoriesScreenTitle":
-            MessageLookupByLibrary.simpleMessage("Categories"),
-        "edit": MessageLookupByLibrary.simpleMessage("Editar"),
-        "homeScreenTitle": MessageLookupByLibrary.simpleMessage("Casa"),
-        "language": MessageLookupByLibrary.simpleMessage("Idioma"),
+        "categoriesScreenTitle": MessageLookupByLibrary.simpleMessage("カテゴリ"),
+        "edit": MessageLookupByLibrary.simpleMessage("編集"),
+        "homeScreenTitle": MessageLookupByLibrary.simpleMessage("家"),
+        "language": MessageLookupByLibrary.simpleMessage("言語"),
         "languageEnglish": MessageLookupByLibrary.simpleMessage("English"),
         "languageJapanese": MessageLookupByLibrary.simpleMessage("Japanese"),
         "languageSpanishUS":
             MessageLookupByLibrary.simpleMessage("Spanish (US)"),
-        "settingsScreenTitle": MessageLookupByLibrary.simpleMessage("Ajustes"),
-        "usersScreenTitle": MessageLookupByLibrary.simpleMessage("Users")
+        "settingsScreenTitle": MessageLookupByLibrary.simpleMessage("設定"),
+        "usersScreenTitle": MessageLookupByLibrary.simpleMessage("ユーザー")
       };
 }
