@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_skeleton/src/config/constants/breakpoints.dart';
+import 'package:flutter_skeleton/src/config/seo/seo.dart';
 import 'package:flutter_skeleton/src/core/drawers/main_drawer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,11 +10,13 @@ abstract class BaseScreen extends ConsumerWidget {
     this.verticalPadding = 8.0,
     this.horizontalPadding = 8.0,
     this.includeMainDrawer = false,
+    this.seoPage,
   }) : super(key: key);
 
   final double verticalPadding;
   final double horizontalPadding;
   final bool includeMainDrawer;
+  final SeoPage? seoPage;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

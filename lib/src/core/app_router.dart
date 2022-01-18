@@ -9,16 +9,15 @@ import 'package:flutter_skeleton/src/feature/settings/settings_screen.dart';
 import 'package:flutter_skeleton/src/feature/user/screens/profile_screen.dart';
 import 'package:flutter_skeleton/src/feature/user/screens/user_list_screen.dart';
 
-@AdaptiveAutoRouter(
-  replaceInRouteName: 'Page,Route,Screen',
-  routes: <AutoRoute>[
-    AutoRoute(initial: true, path: '/', page: AuthLandingScreen),
-    AutoRoute(initial: true, path: '/login', page: LoginScreen),
-    AutoRoute(initial: true, path: '/settings', page: SettingsScreen),
-    dashboardTabRouter,
-    RedirectRoute(path: '*', redirectTo: '/'),
-  ],
-)
+const List<AutoRoute> appRoutes = [
+  AutoRoute(initial: true, path: '/', page: AuthLandingScreen),
+  AutoRoute(initial: true, path: '/login', page: LoginScreen),
+  AutoRoute(initial: true, path: '/settings', page: SettingsScreen),
+  dashboardTabRouter,
+  RedirectRoute(path: '*', redirectTo: '/'),
+];
+
+@AdaptiveAutoRouter(replaceInRouteName: 'Page,Route,Screen', routes: appRoutes)
 class $AppRouter {}
 
 const dashboardTabRouter = AutoRoute(

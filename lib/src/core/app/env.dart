@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names, library_prefixes
 
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
-import 'package:flutter_skeleton/gen/assets.gen.dart';
+import 'package:flutter_skeleton/generated/assets.gen.dart';
 
 enum _Environment {
   Develop,

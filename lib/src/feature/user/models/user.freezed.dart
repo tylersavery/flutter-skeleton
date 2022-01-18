@@ -23,11 +23,13 @@ class _$UserTearOff {
 
   _User call(
       {required int id,
+      required String username,
       String? email,
       @JsonKey(name: 'first_name', defaultValue: "") required String firstName,
       @JsonKey(name: 'last_name', defaultValue: "") required String lastName}) {
     return _User(
       id: id,
+      username: username,
       email: email,
       firstName: firstName,
       lastName: lastName,
@@ -45,6 +47,7 @@ const $User = _$UserTearOff();
 /// @nodoc
 mixin _$User {
   int get id => throw _privateConstructorUsedError;
+  String get username => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   @JsonKey(name: 'first_name', defaultValue: "")
   String get firstName => throw _privateConstructorUsedError;
@@ -62,6 +65,7 @@ abstract class $UserCopyWith<$Res> {
       _$UserCopyWithImpl<$Res>;
   $Res call(
       {int id,
+      String username,
       String? email,
       @JsonKey(name: 'first_name', defaultValue: "") String firstName,
       @JsonKey(name: 'last_name', defaultValue: "") String lastName});
@@ -78,6 +82,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
+    Object? username = freezed,
     Object? email = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
@@ -87,6 +92,10 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      username: username == freezed
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -110,6 +119,7 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   @override
   $Res call(
       {int id,
+      String username,
       String? email,
       @JsonKey(name: 'first_name', defaultValue: "") String firstName,
       @JsonKey(name: 'last_name', defaultValue: "") String lastName});
@@ -127,6 +137,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? username = freezed,
     Object? email = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
@@ -136,6 +147,10 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      username: username == freezed
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -157,6 +172,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 class _$_User extends _User {
   _$_User(
       {required this.id,
+      required this.username,
       this.email,
       @JsonKey(name: 'first_name', defaultValue: "") required this.firstName,
       @JsonKey(name: 'last_name', defaultValue: "") required this.lastName})
@@ -166,6 +182,8 @@ class _$_User extends _User {
 
   @override
   final int id;
+  @override
+  final String username;
   @override
   final String? email;
   @override
@@ -177,7 +195,7 @@ class _$_User extends _User {
 
   @override
   String toString() {
-    return 'User(id: $id, email: $email, firstName: $firstName, lastName: $lastName)';
+    return 'User(id: $id, username: $username, email: $email, firstName: $firstName, lastName: $lastName)';
   }
 
   @override
@@ -186,6 +204,7 @@ class _$_User extends _User {
         (other.runtimeType == runtimeType &&
             other is _User &&
             const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.username, username) &&
             const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality().equals(other.firstName, firstName) &&
             const DeepCollectionEquality().equals(other.lastName, lastName));
@@ -195,6 +214,7 @@ class _$_User extends _User {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(username),
       const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(firstName),
       const DeepCollectionEquality().hash(lastName));
@@ -213,6 +233,7 @@ class _$_User extends _User {
 abstract class _User extends User {
   factory _User(
       {required int id,
+      required String username,
       String? email,
       @JsonKey(name: 'first_name', defaultValue: "")
           required String firstName,
@@ -224,6 +245,8 @@ abstract class _User extends User {
 
   @override
   int get id;
+  @override
+  String get username;
   @override
   String? get email;
   @override

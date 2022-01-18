@@ -28,7 +28,7 @@ Each feature should be built in its own self-contained folder under the "feature
 
 1. clone the repo
 2. replace all instances of `flutter_skeleton` with your `project_name` (use the find replace tool in your IDE)
-3. copy the .example_env as .dev_env and fill out as needed
+3. copy the assets/env/example_env as assets/env/dev_env and fill out as needed
 4. remove and features not required as well as references to them
 5. run generate function watcher below
 6. run your app in chrome, ios, android, mac, etc.
@@ -36,7 +36,9 @@ Each feature should be built in its own self-contained folder under the "feature
 ## generate
 
 ```
-flutter packages pub run build_runner watch --delete-conflicting-outputs
+make gen
+# OR watch for updates:
+make gen_watch
 ```
 
 ## l10n
@@ -48,4 +50,10 @@ flutter packages pub run build_runner watch --delete-conflicting-outputs
 
 ```
 import 'package:flutter_skeleton/generated/l10n.dart';
+```
+
+## Build
+
+```
+make build_web
 ```

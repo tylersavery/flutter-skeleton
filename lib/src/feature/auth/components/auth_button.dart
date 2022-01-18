@@ -25,7 +25,7 @@ class AuthButton extends BaseComponent {
         }
       },
       child: Text(
-        _isAuthenticated ? ref.read(sessionProvider).user!.fullName : "Login",
+        _isAuthenticated ? ref.read(sessionProvider).user!.username : "Login",
       ),
     );
   }

@@ -9,6 +9,7 @@ class User with _$User {
 
   factory User({
     required int id,
+    required String username,
     String? email,
     @JsonKey(name: 'first_name', defaultValue: "") required String firstName,
     @JsonKey(name: 'last_name', defaultValue: "") required String lastName,

@@ -1,6 +1,12 @@
 # Env
 assets/env/*
-!assets/env/.example_env
+!assets/env/example_env
+
+.firebaserc
+firebase.json
+
+lib/generated/*
+!lib/generated/.gitkeep
 
 # Miscellaneous
 *.class
