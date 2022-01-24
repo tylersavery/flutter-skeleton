@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_skeleton/src/core/dashboard.dart';
-import 'package:flutter_skeleton/src/feature/auth/screens/auth_landing.dart';
+import 'package:flutter_skeleton/src/feature/auth/screens/auth_landing_screen.dart';
 import 'package:flutter_skeleton/src/feature/auth/screens/login_screen.dart';
 import 'package:flutter_skeleton/src/feature/auth/screens/register_screen.dart';
+import 'package:flutter_skeleton/src/feature/auth/screens/update_password_screen.dart';
 import 'package:flutter_skeleton/src/feature/category/screens/category_list_screen.dart';
 import 'package:flutter_skeleton/src/feature/home/home_screen.dart';
 import 'package:flutter_skeleton/src/feature/placeholder/placeholder_screen.dart';
@@ -12,9 +13,10 @@ import 'package:flutter_skeleton/src/feature/user/screens/user_list_screen.dart'
 
 const List<AutoRoute> appRoutes = [
   AutoRoute(initial: true, path: '/', page: AuthLandingScreen),
-  AutoRoute(initial: true, path: '/login', page: LoginScreen),
-  AutoRoute(initial: true, path: '/register', page: RegisterScreen),
-  AutoRoute(initial: true, path: '/settings', page: SettingsScreen),
+  AutoRoute(path: '/login', page: LoginScreen),
+  AutoRoute(path: '/register', page: RegisterScreen),
+  AutoRoute(path: '/settings', page: SettingsScreen),
+  AutoRoute(path: '/update-password/:token', page: UpdatePasswordScreen),
   dashboardTabRouter,
   RedirectRoute(path: '*', redirectTo: '/'),
 ];

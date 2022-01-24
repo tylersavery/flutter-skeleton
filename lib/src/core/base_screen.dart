@@ -71,7 +71,7 @@ abstract class BaseStatefulScreen extends ConsumerStatefulWidget {
   BaseScreenState createState() => BaseScreenState();
 }
 
-class BaseScreenState<T> extends ConsumerState<BaseStatefulScreen> {
+class BaseScreenState<T extends BaseStatefulScreen> extends ConsumerState<T> {
   @override
   void initState() {
     super.initState();

@@ -78,3 +78,68 @@ class ConfirmDialog {
     );
   }
 }
+
+class PromptModal {
+  static Future<String?> show({
+    required String title,
+    required String? Function(String?) validator,
+    required labelText,
+    bool obscureText = false,
+    String? cancelText,
+    String? confirmText,
+    String initialValue = "",
+    bool destructive = false,
+  }) async {
+    final context = rootNavigatorKey.currentContext!;
+
+    final GlobalKey<FormState> _formKey = GlobalKey();
+
+    final TextEditingController _controller =
+        TextEditingController(text: initialValue);
+
+    return await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Form(
+            key: _formKey,
+            child: TextFormField(
+              controller: _controller,
+              obscureText: obscureText,
+              decoration: InputDecoration(
+                label: Text(labelText),
+              ),
+              validator: validator,
+            ),
+          ),
+          actions: [
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(null);
+              },
+              child: Text(cancelText ?? "Cancel"),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                primary: destructive
+                    ? Theme.of(context).colorScheme.error
+                    : Theme.of(context).colorScheme.primary,
+                textStyle: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onPressed: () {
+                if (!_formKey.currentState!.validate()) return;
+                final value = _controller.value.text;
+                Navigator.of(context).pop(value.isNotEmpty ? value : null);
+              },
+              child: Text(confirmText ?? "Okay"),
+            )
+          ],
+        );
+      },
+    );
+  }
+}

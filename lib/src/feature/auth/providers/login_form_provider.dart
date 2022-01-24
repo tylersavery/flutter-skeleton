@@ -2,11 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_skeleton/src/app.dart';
 import 'package:flutter_skeleton/src/core/app/env.dart';
 import 'package:flutter_skeleton/src/core/app/loading_provider.dart';
 import 'package:flutter_skeleton/src/core/app/session_provider.dart';
 import 'package:flutter_skeleton/src/core/app/singletons.dart';
 import 'package:flutter_skeleton/src/core/app_router.gr.dart';
+import 'package:flutter_skeleton/src/core/dialogs/dialogs.dart';
 import 'package:flutter_skeleton/src/feature/auth/services/auth_service.dart';
 import 'package:flutter_skeleton/src/utils/toast.dart';
 import 'package:flutter_skeleton/src/utils/validation.dart';
@@ -81,32 +83,31 @@ class LoginFormProvider extends StateNotifier<LoginFormModel> {
   String get email => emailController.value.text;
   String get password => passwordController.value.text;
 
-  String? emailValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return "Email required.";
-    }
-    if (!isValidEmail(value)) {
-      return "Invalid email.";
-    }
-    return null;
-  }
+  String? emailValidator(String? value) => formValidatorEmail(value);
 
-  String? passwordValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return "Password required.";
-    }
-
-    if (!isValidPassword(value)) {
-      return "Password not strong enough.";
-    }
-
-    return null;
-  }
+  String? passwordValidator(String? value) => formValidatorPassword(value);
 
   void clear() {
     emailController.text = Env.debug ? Env.debugLoginEmail : "";
     passwordController.text = Env.debug ? Env.debugLoginPassword : "";
     _updateState(status: LoginFormStatus.Empty, clear: true);
+  }
+
+  Future<void> forgotPassword() async {
+    final email = await PromptModal.show(
+      title: "Reset Password",
+      labelText: "Your email address",
+      validator: formValidatorEmail,
+    );
+
+    if (email == null) return;
+
+    final success = await AuthService().requestPasswordReset(email: email);
+    if (success) {
+      Toast.message("Check your email");
+    } else {
+      Toast.error();
+    }
   }
 
   Future<void> submit() async {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_skeleton/src/core/base_component.dart';
-import 'package:flutter_skeleton/src/core/components/centered_loader.dart';
 import 'package:flutter_skeleton/src/feature/auth/providers/login_form_provider.dart';
 
 class LoginForm extends BaseComponent {
@@ -45,13 +44,8 @@ class LoginForm extends BaseComponent {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextButton(
-                        onPressed:
-                            _loginFormModel.status == LoginFormStatus.Empty
-                                ? null
-                                : () {
-                                    _loginFormProvider.clear();
-                                  },
-                        child: const Text("Clear"),
+                        onPressed: _loginFormProvider.forgotPassword,
+                        child: const Text("Forgot Password"),
                       ),
                       ElevatedButton(
                         onPressed:

@@ -8,8 +8,6 @@ class AuthService extends ApiService {
       'password': password,
     };
 
-    await Future.delayed(Duration(seconds: 3));
-
     try {
       final response =
           await postHttp('/auth/token', params: _params, auth: false);
@@ -67,5 +65,26 @@ class AuthService extends ApiService {
     } catch (e) {
       return false;
     }
+  }
+
+  Future<bool> requestPasswordReset({String? email, String? username}) async {
+    if (email == null && username == null) {
+      return false;
+    }
+
+    try {
+      final params = email != null ? {'email': email} : {'username': username};
+      await postHttp('/auth/password-reset', params: params, auth: false);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> completePasswordReset({
+    required String password,
+    required String token,
+  }) async {
+    return true; //TODO: handle this
   }
 }

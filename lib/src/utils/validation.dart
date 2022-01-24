@@ -23,3 +23,27 @@ bool isValidPassword(String password) {
   //         r'^(?=[^A-Z\n]*[A-Z])(?=[^a-z\n]*[a-z])(?=[^0-9\n]*[0-9])(?=[^#?!@$%^&*\n-]*[#?!@$%^&*-]).{8,}$')
   //     .hasMatch(password);
 }
+
+String? formValidatorEmail(String? value) {
+  print(value);
+  print("VALUE");
+  if (value == null || value.isEmpty) {
+    return "Email required.";
+  }
+  if (!isValidEmail(value)) {
+    return "Invalid email.";
+  }
+  return null;
+}
+
+String? formValidatorPassword(String? value) {
+  if (value == null || value.isEmpty) {
+    return "Password required.";
+  }
+
+  if (!isValidPassword(value)) {
+    return "Password not strong enough.";
+  }
+
+  return null;
+}
