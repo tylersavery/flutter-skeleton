@@ -104,8 +104,8 @@ class LoginFormProvider extends StateNotifier<LoginFormModel> {
   }
 
   void clear() {
-    emailController.text = "";
-    passwordController.text = "";
+    emailController.text = Env.debug ? Env.debugLoginEmail : "";
+    passwordController.text = Env.debug ? Env.debugLoginPassword : "";
     _updateState(status: LoginFormStatus.Empty, clear: true);
   }
 
