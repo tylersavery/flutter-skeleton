@@ -69,7 +69,11 @@ class _AuthLandingScreenState extends BaseScreenState<AuthLandingScreen> {
           const SizedBox(
             height: 16,
           ),
-          ElevatedButton(onPressed: () {}, child: const Text("Register")),
+          ElevatedButton(
+              onPressed: () {
+                AutoRouter.of(context).push(const RegisterScreenRoute());
+              },
+              child: const Text("Register")),
           const SizedBox(
             height: 16,
           ),

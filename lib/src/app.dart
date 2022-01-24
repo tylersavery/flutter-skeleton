@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_skeleton/src/core/app/loading_provider.dart';
 import 'package:flutter_skeleton/src/feature/locale/locale_provider.dart';
 import "../generated/l10n.dart";
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -64,10 +65,21 @@ class App extends ConsumerWidget {
         //   );
         // }
 
-        return ResponsiveWrapper.builder(
-          BouncingScrollWrapper.builder(context, widget!),
-          defaultScale: true,
-          breakpoints: BreakPoints.breakpoints,
+        return Stack(
+          children: [
+            ResponsiveWrapper.builder(
+              BouncingScrollWrapper.builder(context, widget!),
+              defaultScale: true,
+              breakpoints: BreakPoints.breakpoints,
+            ),
+            if (ref.watch(loadingProvider))
+              Container(
+                color: Colors.black54,
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+          ],
         );
       },
     );

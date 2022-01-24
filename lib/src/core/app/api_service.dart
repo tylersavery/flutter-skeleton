@@ -52,6 +52,14 @@ class ApiService {
         _cleanPath(path),
         queryParameters: params,
       );
+
+      if (response.statusCode == 204) {
+        return {};
+      }
+      if (response.data == null) {
+        return {};
+      }
+
       return response.data;
     } catch (e) {
       rethrow;
@@ -68,6 +76,12 @@ class ApiService {
         _cleanPath(path),
         data: params,
       );
+      if (response.statusCode == 204) {
+        return {};
+      }
+      if (response.data == null) {
+        return {};
+      }
       return response.data;
     } catch (e) {
       rethrow;
