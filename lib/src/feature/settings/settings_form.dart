@@ -1,123 +1,183 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_skeleton/src/app.dart';
-import 'package:flutter_skeleton/src/core/app/session_provider.dart';
-import 'package:flutter_skeleton/src/core/app_router.gr.dart';
-import 'package:flutter_skeleton/src/core/dialogs/dialogs.dart';
-import 'package:flutter_skeleton/src/feature/auth/services/auth_service.dart';
+import 'package:flutter_skeleton/generated/l10n.dart';
+import 'package:flutter_skeleton/src/core/base_component.dart';
 import 'package:flutter_skeleton/src/feature/locale/locale_provider.dart';
-import 'package:flutter_skeleton/src/feature/theme/theme_provider.dart';
-import 'package:flutter_skeleton/src/feature/user/models/user.dart';
-import 'package:flutter_skeleton/src/utils/toast.dart';
-import 'package:flutter_skeleton/src/utils/validation.dart';
+import 'package:flutter_skeleton/src/feature/settings/settings_form_provider.dart';
 
-class SettingsFormModel {
-  final ThemeMode theme;
-  final Locale? locale;
-  final bool isAuthenticated;
-  final User? user;
-  const SettingsFormModel({
-    this.theme = ThemeMode.system,
-    this.locale,
-    this.isAuthenticated = false,
-    this.user,
-  });
+class SettingsForm extends BaseComponent {
+  const SettingsForm({Key? key}) : super(key: key);
 
-  SettingsFormModel copyWith(
-      {ThemeMode? theme, Locale? locale, bool? isAuthenticated, User? user}) {
-    return SettingsFormModel(
-      theme: theme ?? this.theme,
-      locale: locale ?? this.locale,
-      isAuthenticated: isAuthenticated ?? this.isAuthenticated,
-      user: user ?? this.user,
+  @override
+  Widget body(BuildContext context, WidgetRef ref) {
+    final _form = ref.read(settingsForm.notifier);
+    final _formModel = ref.watch(settingsForm);
+
+    return Center(
+      child: Flexible(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _ListItem(
+                    icon: Icons.color_lens,
+                    title: "Theme",
+                    content: DropdownButton<ThemeMode>(
+                      value: _formModel.theme,
+                      onChanged: (value) {
+                        switch (value) {
+                          case ThemeMode.dark:
+                            _form.setDark();
+                            break;
+                          case ThemeMode.light:
+                            _form.setLight();
+                            break;
+                          case ThemeMode.system:
+                            _form.setSystem();
+                            break;
+                          default:
+                            break;
+                        }
+                      },
+                      items: const [
+                        DropdownMenuItem(
+                          value: ThemeMode.system,
+                          child: Text('System Theme'),
+                        ),
+                        DropdownMenuItem(
+                          value: ThemeMode.light,
+                          child: Text('Light Theme'),
+                        ),
+                        DropdownMenuItem(
+                          value: ThemeMode.dark,
+                          child: Text('Dark Theme'),
+                        )
+                      ],
+                    ),
+                  ),
+                  _ListItem(
+                    icon: Icons.language,
+                    title: S.of(context).language,
+                    content: DropdownButton<Locale>(
+                      value: _formModel.locale,
+                      onChanged: (value) {
+                        _form.setLocale(value!);
+                      },
+                      items: _form.supportedLocales
+                          .map(
+                            (locale) => DropdownMenuItem(
+                              child: Text(LocaleProvider.localeToLabel(locale)),
+                              value: locale,
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                  if (_formModel.isAuthenticated)
+                    _ListItem(
+                      icon: Icons.person,
+                      title: "Profile",
+                      content: OutlinedButton(
+                        child: const Text("Edit Profile"),
+                        onPressed: _form.editProfile,
+                      ),
+                    ),
+                  if (_formModel.user != null)
+                    _ListItem(
+                      icon: Icons.email,
+                      title: _formModel.user!.email ?? "-",
+                      subtitle: "Email Address",
+                      content: OutlinedButton(
+                        child: const Text("Change Email"),
+                        onPressed: _form.changeEmail,
+                      ),
+                    ),
+                  if (_formModel.user != null)
+                    _ListItem(
+                      icon: Icons.phone,
+                      title: _formModel.user!.phoneNumber.isEmpty
+                          ? "-"
+                          : _formModel.user!.phoneNumber,
+                      subtitle: "Phone Number",
+                      content: OutlinedButton(
+                        child: Text(_formModel.user!.phoneNumber.isEmpty
+                            ? "Add Phone Number"
+                            : "Change Phone Number"),
+                        onPressed: () {
+                          _form.changePhoneNumber(
+                              _formModel.user!.phoneNumber.isNotEmpty);
+                        },
+                      ),
+                    ),
+                  if (_formModel.isAuthenticated)
+                    _ListItem(
+                      icon: Icons.lock,
+                      title: "******",
+                      subtitle: "Password",
+                      content: OutlinedButton(
+                        child: const Text("Change Password"),
+                        onPressed: _form.changePassword,
+                      ),
+                    ),
+                  const Divider(),
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (_formModel.isAuthenticated)
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary: Theme.of(context).colorScheme.error),
+                              onPressed: _form.logout,
+                              child: const Text("Logout"),
+                            ),
+                          if (!_formModel.isAuthenticated)
+                            ElevatedButton(
+                              onPressed: _form.handleLogin,
+                              child: const Text("Login"),
+                            )
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
 
-class SettingsFormProvider extends StateNotifier<SettingsFormModel> {
-  SettingsFormProvider(this.read, [SettingsFormModel model = _initial])
-      : super(model);
-  final Reader read;
+class _ListItem extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String? subtitle;
+  final Widget content;
 
-  static const _initial = SettingsFormModel();
+  const _ListItem({
+    Key? key,
+    required this.icon,
+    required this.title,
+    this.subtitle,
+    required this.content,
+  }) : super(key: key);
 
-  //Theme
-  void setDark() {
-    read(themeProvider.notifier).setDark();
-    state = state.copyWith(theme: ThemeMode.dark);
-  }
-
-  void setLight() {
-    read(themeProvider.notifier).setLight();
-    state = state.copyWith(theme: ThemeMode.light);
-  }
-
-  void setSystem() {
-    read(themeProvider.notifier).setSystem();
-    state = state.copyWith(theme: ThemeMode.system);
-  }
-
-  // Locale
-
-  List<Locale> get supportedLocales {
-    return LocaleProvider.supportedLocales;
-  }
-
-  void setLocale(Locale locale) {
-    read(localeProvider.notifier).setLocale(locale);
-    state = state.copyWith(locale: locale);
-  }
-
-  // Session
-  void logout() {
-    read(sessionProvider.notifier).logout();
-    state = state.copyWith(isAuthenticated: false);
-  }
-
-  void handleLogin() {
-    AutoRouter.of(rootNavigatorKey.currentContext!)
-        .push(const LoginScreenRoute());
-  }
-
-  void changePassword() async {
-    await PromptModal.show(
-      title: "Change Password",
-      validator: (String? value) =>
-          formValidatorNotEmpty(value, "Current Password"),
-      labelText: "Current Password",
-      obscureText: true,
-      seconaryInput: true,
-      secondaryLabel: "New Password",
-      secondaryValidator: formValidatorPassword,
-      secondaryObscureText: true,
-      onValidSubmission: (data) async {
-        if (data.length < 2) return;
-        final oldPassword = data[0];
-        final newPassword = data[1];
-
-        final success = await AuthService()
-            .changePassword(oldPassword: oldPassword, newPassword: newPassword);
-
-        if (success) {
-          Navigator.of(rootNavigatorKey.currentContext!).pop();
-          Toast.message("Password Changed");
-        } else {
-          Toast.error();
-        }
-      },
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      subtitle: subtitle != null ? Text(subtitle!) : null,
+      trailing: content,
     );
   }
 }
-
-final settingsForm =
-    StateNotifierProvider<SettingsFormProvider, SettingsFormModel>((ref) {
-  final initial = SettingsFormModel(
-    theme: ref.read(themeProvider),
-    locale: ref.read(localeProvider),
-    isAuthenticated: ref.watch(sessionProvider).isAuthenticated,
-    user: ref.watch(sessionProvider).user,
-  );
-
-  return SettingsFormProvider(ref.read, initial);
-});

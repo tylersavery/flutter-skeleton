@@ -121,8 +121,8 @@ class LoginFormProvider extends StateNotifier<LoginFormModel> {
 
     if (loginResult != null) {
       if (loginResult.twoFa) {
-        read(sessionProvider.notifier).setMetaData('email', email);
-        read(sessionProvider.notifier).setMetaData('password', password);
+        read(sessionProvider.notifier)
+            .setMetaData({'email': email, 'password': password});
 
         singleton<AppRouter>().push(const TwoFactorConfirmationScreenRoute());
         Toast.message(

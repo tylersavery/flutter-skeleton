@@ -106,6 +106,11 @@ class SessionProvider extends StateNotifier<SessionModel> {
     });
   }
 
+  Future<void> refreshUser() async {
+    final user = await UserService().me();
+    state = state.copyWith(user: user);
+  }
+
   Future<bool> logout() async {
     bool confirmed = await ConfirmDialog.show(
       title: "Logout",
@@ -132,12 +137,11 @@ class SessionProvider extends StateNotifier<SessionModel> {
     return true;
   }
 
-  void setMetaData(String key, String value) {
+  void setMetaData(Map<String, dynamic> data) {
     Map<String, dynamic> metaData = {...state.metaData};
-    metaData[key] = value;
 
     state = state.copyWith(
-      metaData: metaData,
+      metaData: {...metaData, ...data},
     );
   }
 }

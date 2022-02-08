@@ -34,12 +34,12 @@ class TwoFactorConfirmation extends BaseComponent {
                       validator: _formProvider.codeValidator),
                   const Divider(),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      TextButton(
-                        onPressed: _formProvider.resendCode,
-                        child: const Text("Resend Code"),
-                      ),
+                      // TextButton(
+                      //   onPressed: _formProvider.resendCode,
+                      //   child: const Text("Resend Code"),
+                      // ),
                       ElevatedButton(
                         onPressed: _formModel.status == FormStatus.Processing
                             ? null

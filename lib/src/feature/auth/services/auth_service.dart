@@ -93,7 +93,7 @@ class AuthService extends ApiService {
 
   Future<bool> emailAvailable(String email) async {
     try {
-      final data = await postHttp('/auth/email/available',
+      final data = await postHttp('/auth/email/validate',
           params: {'email': email}, auth: false);
       return data['is_available'] ?? false;
     } catch (e) {
@@ -104,7 +104,7 @@ class AuthService extends ApiService {
   Future<bool> usernameAvailable(String username) async {
     return true; //TEMP since current BP does not have usernames yet
     // try {
-    //  final data = await postHttp('/auth/username/available',
+    //  final data = await postHttp('/auth/username/validate',
     //       params: {'username': username}, auth: false);
     //   return data['is_available'] ?? false;
     // } catch (e) {
@@ -149,4 +149,62 @@ class AuthService extends ApiService {
       return false;
     }
   }
+
+  Future<bool> changeEmail({
+    required String email,
+  }) async {
+    try {
+      final params = {
+        'email': email,
+      };
+
+      await postHttp('/auth/email/change', params: params);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> completeEmailChange({
+    required String token,
+  }) async {
+    final params = {
+      'token': token,
+    };
+    try {
+      await postHttp('/auth/email/change/complete/', params: params);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> changePhoneNumber({
+    required String phoneNumber,
+  }) async {
+    try {
+      final params = {
+        'phone_number': phoneNumber,
+      };
+
+      await postHttp('/auth/phone-number/change', params: params);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  // Future<bool> completePhoneNumberChange({
+  //   required String token,
+  // }) async {
+  //   final params = {
+  //     'token': token,
+  //   };
+  //   try {
+  //     await postHttp('/auth/phone-number/change/complete/', params: params);
+  //     return true;
+  //   } catch (e) {
+  //     return false;
+  //   }
+  // }
 }

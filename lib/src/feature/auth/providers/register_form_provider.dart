@@ -131,8 +131,8 @@ class RegisterFormProvider extends StateNotifier<RegisterFormModel> {
     if (user.is2faEnabled) {
       singleton<AppRouter>().push(const TwoFactorConfirmationScreenRoute());
 
-      read(sessionProvider.notifier).setMetaData('email', email);
-      read(sessionProvider.notifier).setMetaData('password', password);
+      read(sessionProvider.notifier)
+          .setMetaData({'email': email, 'password': password});
       Toast.message("A confirmation code has been sent to your phone number.");
       read(loadingProvider.notifier).complete();
     } else {
@@ -144,7 +144,6 @@ class RegisterFormProvider extends StateNotifier<RegisterFormModel> {
         singleton<AppRouter>().push(const DashboardContainerRoute());
         Toast.message("Thanks for joining!");
         read(loadingProvider.notifier).complete();
-
         clear();
         return;
       } else {

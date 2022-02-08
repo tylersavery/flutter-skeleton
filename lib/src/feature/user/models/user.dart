@@ -50,7 +50,7 @@ class User with _$User {
     return {
       'email': email,
       'password': password,
-      'phone_number': phoneNumber,
+      'phone_number': normalizePhoneNumber(phoneNumber),
       'name': name,
       // 'username': username,
     };
