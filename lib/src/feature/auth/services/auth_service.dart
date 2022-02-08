@@ -1,33 +1,77 @@
 import 'package:flutter_skeleton/src/core/app/api_service.dart';
+import 'package:flutter_skeleton/src/feature/auth/models/login_result.dart';
 import 'package:flutter_skeleton/src/feature/auth/models/token.dart';
+import 'package:flutter_skeleton/src/feature/user/models/user.dart';
 
 class AuthService extends ApiService {
-  Future<Token?> login(String email, String password) async {
-    final _params = {
+  Future<LoginResult?> login({
+    required String email,
+    String? otpCode,
+    String? password,
+  }) async {
+    if (otpCode == null && password == null) {
+      return null;
+    }
+
+    final Map<String, dynamic> _params = {
       'email': email,
-      'password': password,
+      ...otpCode != null ? {'otp': otpCode} : {},
+      ...password != null ? {'password': password} : {},
     };
 
     try {
       final response =
           await postHttp('/auth/token', params: _params, auth: false);
-      return Token.fromJson(response);
+
+      if (response.keys.contains("is_2fa_enabled") &&
+          response['is_2fa_enabled'] == true) {
+        return const LoginResult(twoFa: true);
+      }
+
+      final token = Token.fromJson(response);
+      return LoginResult(token: token);
     } catch (e) {
       return null;
     }
   }
 
-  Future<Token?> register(
-      String email, String username, String password) async {
-    final _params = {
+  Future<bool> validateLoginCredentials({
+    required String email,
+    required String password,
+  }) async {
+    final Map<String, dynamic> _params = {
       'email': email,
-      'username': username,
       'password': password,
     };
 
     try {
-      await postHttp('/auth/register', params: _params, auth: false);
-      return await login(email, password);
+      await postHttp('/auth/token', params: _params, auth: false);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<User?> register({
+    required String email,
+    required String username,
+    required String password,
+    required phoneNumber,
+    required name,
+  }) async {
+    final user = User.register(
+      email: email,
+      username: username,
+      password: password,
+      phoneNumber: phoneNumber,
+      name: name,
+    );
+
+    try {
+      final data = await postHttp('/auth/register',
+          params: user.serializeForRegister(), auth: false);
+
+      return User.fromJson(data);
     } catch (e) {
       return null;
     }
@@ -49,22 +93,23 @@ class AuthService extends ApiService {
 
   Future<bool> emailAvailable(String email) async {
     try {
-      await getHttp('/auth/email-validate',
+      final data = await postHttp('/auth/email/available',
           params: {'email': email}, auth: false);
-      return true;
+      return data['is_available'] ?? false;
     } catch (e) {
       return false;
     }
   }
 
   Future<bool> usernameAvailable(String username) async {
-    try {
-      await getHttp('/auth/username-validate',
-          params: {'username': username}, auth: false);
-      return true;
-    } catch (e) {
-      return false;
-    }
+    return true; //TEMP since current BP does not have usernames yet
+    // try {
+    //  final data = await postHttp('/auth/username/available',
+    //       params: {'username': username}, auth: false);
+    //   return data['is_available'] ?? false;
+    // } catch (e) {
+    //   return false;
+    // }
   }
 
   Future<bool> requestPasswordReset({String? email, String? username}) async {
@@ -86,5 +131,22 @@ class AuthService extends ApiService {
     required String token,
   }) async {
     return true; //TODO: handle this
+  }
+
+  Future<bool> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    try {
+      final params = {
+        'old_password': oldPassword,
+        'new_password': newPassword,
+      };
+
+      await postHttp('/auth/password/change', params: params);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter_skeleton/src/utils/strings.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user.freezed.dart';
@@ -9,18 +10,49 @@ class User with _$User {
 
   factory User({
     required int id,
-    required String username,
+    @JsonKey(defaultValue: "") required String uuid,
     String? email,
-    @JsonKey(name: 'first_name', defaultValue: "") required String firstName,
-    @JsonKey(name: 'last_name', defaultValue: "") required String lastName,
+    @JsonKey(defaultValue: "") required String name,
+    @JsonKey(name: 'phone_number', defaultValue: "")
+        required String phoneNumber,
+    @JsonKey(defaultValue: "en") required String language,
+    @JsonKey(name: 'is_email_confirmed', defaultValue: false)
+        required bool isEmailConfirmed,
+    @JsonKey(name: 'is_phone_number_confirmed', defaultValue: false)
+        required bool isPhoneNumberConfirmed,
+    @JsonKey(name: 'is_2fa_enabled', defaultValue: false)
+        required bool is2faEnabled,
+    DateTime? createdAt,
+    String? password,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
-  String get fullName {
-    if (firstName.isEmpty && lastName.isEmpty) {
-      return "Anonymous";
-    }
-    return "$firstName $lastName".trim();
+  factory User.register({
+    required String email,
+    required String username,
+    required String password,
+    required String phoneNumber,
+    required String name,
+  }) {
+    final json = {
+      'email': email,
+      'password': password,
+      'name': name,
+      'username': username,
+      'phone_number': normalizePhoneNumber(phoneNumber)
+    };
+
+    return _$UserFromJson(json);
+  }
+
+  Map<String, dynamic> serializeForRegister() {
+    return {
+      'email': email,
+      'password': password,
+      'phone_number': phoneNumber,
+      'name': name,
+      // 'username': username,
+    };
   }
 }

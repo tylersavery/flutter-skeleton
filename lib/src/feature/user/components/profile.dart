@@ -13,6 +13,6 @@ class Profile extends BaseComponent {
 
   @override
   Widget body(BuildContext context, WidgetRef ref) {
-    return Text(user.fullName);
+    return Text(user.name);
   }
 }

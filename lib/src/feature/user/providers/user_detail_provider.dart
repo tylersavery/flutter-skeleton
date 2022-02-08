@@ -3,6 +3,6 @@ import 'package:flutter_skeleton/src/feature/user/models/user.dart';
 import 'package:flutter_skeleton/src/feature/user/services/user_service.dart';
 
 final userDetailProvider =
-    FutureProvider.family<User, int>((ref, int id) async {
-  return UserService().retrieve(id);
+    FutureProvider.family<User, String>((ref, String uuid) async {
+  return UserService().retrieve(uuid);
 });

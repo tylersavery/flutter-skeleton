@@ -80,15 +80,21 @@ class ConfirmDialog {
 }
 
 class PromptModal {
-  static Future<String?> show({
+  static Future<List<String>?> show({
     required String title,
     required String? Function(String?) validator,
-    required labelText,
+    required String labelText,
     bool obscureText = false,
     String? cancelText,
     String? confirmText,
     String initialValue = "",
     bool destructive = false,
+    bool seconaryInput = false,
+    String secondaryLabel = "",
+    String secondaryInitialValue = "",
+    bool secondaryObscureText = false,
+    Function(String?)? secondaryValidator,
+    Function(List<String>)? onValidSubmission,
   }) async {
     final context = rootNavigatorKey.currentContext!;
 
@@ -97,6 +103,9 @@ class PromptModal {
     final TextEditingController _controller =
         TextEditingController(text: initialValue);
 
+    final TextEditingController _secondaryController =
+        TextEditingController(text: secondaryInitialValue);
+
     return await showDialog(
       context: context,
       builder: (context) {
@@ -104,13 +113,31 @@ class PromptModal {
           title: Text(title),
           content: Form(
             key: _formKey,
-            child: TextFormField(
-              controller: _controller,
-              obscureText: obscureText,
-              decoration: InputDecoration(
-                label: Text(labelText),
-              ),
-              validator: validator,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                  controller: _controller,
+                  obscureText: obscureText,
+                  autofocus: true,
+                  decoration: InputDecoration(
+                    label: Text(labelText),
+                  ),
+                  validator: validator,
+                ),
+                if (seconaryInput)
+                  TextFormField(
+                    controller: _secondaryController,
+                    obscureText: secondaryObscureText,
+                    decoration: InputDecoration(
+                      label: Text(secondaryLabel),
+                    ),
+                    validator: (String? value) {
+                      if (secondaryValidator == null) return null;
+                      return secondaryValidator(value);
+                    },
+                  ),
+              ],
             ),
           ),
           actions: [
@@ -132,7 +159,16 @@ class PromptModal {
               ),
               onPressed: () {
                 if (!_formKey.currentState!.validate()) return;
-                final value = _controller.value.text;
+
+                final value = seconaryInput
+                    ? [_controller.value.text, _secondaryController.value.text]
+                    : [_controller.value.text];
+
+                if (onValidSubmission != null) {
+                  onValidSubmission(value);
+                  return;
+                }
+
                 Navigator.of(context).pop(value.isNotEmpty ? value : null);
               },
               child: Text(confirmText ?? "Okay"),

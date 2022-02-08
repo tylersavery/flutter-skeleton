@@ -14,12 +14,11 @@ class UserCard extends BaseComponent {
     return Card(
       child: InkWell(
         onTap: () {
-          // GoRouter.of(context).push(Routes.userDetail.routeWithId(user.id));
-          AutoRouter.of(context).push(ProfileScreenRoute(id: user.id));
+          AutoRouter.of(context).push(ProfileScreenRoute(uuid: user.uuid));
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(user.fullName),
+          child: Text(user.name),
         ),
       ),
     );

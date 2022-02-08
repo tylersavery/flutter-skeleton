@@ -4,38 +4,40 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_skeleton/src/app.dart';
 import 'package:flutter_skeleton/src/core/app/session_provider.dart';
 import 'package:flutter_skeleton/src/core/app_router.gr.dart';
+import 'package:flutter_skeleton/src/core/dialogs/dialogs.dart';
+import 'package:flutter_skeleton/src/feature/auth/services/auth_service.dart';
 import 'package:flutter_skeleton/src/feature/locale/locale_provider.dart';
 import 'package:flutter_skeleton/src/feature/theme/theme_provider.dart';
+import 'package:flutter_skeleton/src/feature/user/models/user.dart';
+import 'package:flutter_skeleton/src/utils/toast.dart';
+import 'package:flutter_skeleton/src/utils/validation.dart';
 
 class SettingsFormModel {
   final ThemeMode theme;
   final Locale? locale;
   final bool isAuthenticated;
+  final User? user;
   const SettingsFormModel({
     this.theme = ThemeMode.system,
     this.locale,
     this.isAuthenticated = false,
+    this.user,
   });
 
   SettingsFormModel copyWith(
-      {ThemeMode? theme, Locale? locale, bool? isAuthenticated}) {
+      {ThemeMode? theme, Locale? locale, bool? isAuthenticated, User? user}) {
     return SettingsFormModel(
       theme: theme ?? this.theme,
       locale: locale ?? this.locale,
       isAuthenticated: isAuthenticated ?? this.isAuthenticated,
+      user: user ?? this.user,
     );
   }
 }
 
 class SettingsFormProvider extends StateNotifier<SettingsFormModel> {
   SettingsFormProvider(this.read, [SettingsFormModel model = _initial])
-      : super(model) {
-    // state = SettingsFormModel(
-    //   theme: read(themeProvider),
-    //   locale: read(localeProvider),
-    //   isAuthenticated: read(sessionProvider).isAuthenticated,
-    // );
-  }
+      : super(model);
   final Reader read;
 
   static const _initial = SettingsFormModel();
@@ -77,6 +79,35 @@ class SettingsFormProvider extends StateNotifier<SettingsFormModel> {
     AutoRouter.of(rootNavigatorKey.currentContext!)
         .push(const LoginScreenRoute());
   }
+
+  void changePassword() async {
+    await PromptModal.show(
+      title: "Change Password",
+      validator: (String? value) =>
+          formValidatorNotEmpty(value, "Current Password"),
+      labelText: "Current Password",
+      obscureText: true,
+      seconaryInput: true,
+      secondaryLabel: "New Password",
+      secondaryValidator: formValidatorPassword,
+      secondaryObscureText: true,
+      onValidSubmission: (data) async {
+        if (data.length < 2) return;
+        final oldPassword = data[0];
+        final newPassword = data[1];
+
+        final success = await AuthService()
+            .changePassword(oldPassword: oldPassword, newPassword: newPassword);
+
+        if (success) {
+          Navigator.of(rootNavigatorKey.currentContext!).pop();
+          Toast.message("Password Changed");
+        } else {
+          Toast.error();
+        }
+      },
+    );
+  }
 }
 
 final settingsForm =
@@ -85,6 +116,7 @@ final settingsForm =
     theme: ref.read(themeProvider),
     locale: ref.read(localeProvider),
     isAuthenticated: ref.watch(sessionProvider).isAuthenticated,
+    user: ref.watch(sessionProvider).user,
   );
 
   return SettingsFormProvider(ref.read, initial);

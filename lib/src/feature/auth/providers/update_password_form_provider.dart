@@ -12,7 +12,7 @@ class UpdatePasswordFormProvider {
   UpdatePasswordFormProvider(this.read);
 
   Future<void> showDialog(String token) async {
-    final password = await PromptModal.show(
+    final data = await PromptModal.show(
       title: "Update Password",
       validator: formValidatorPassword,
       labelText: "New Password",
@@ -20,9 +20,11 @@ class UpdatePasswordFormProvider {
       confirmText: "Update",
     );
 
-    if (password == null) {
+    if (data == null || data.isEmpty) {
       return;
     }
+
+    final password = data.first;
 
     read(loadingProvider.notifier).start();
 

@@ -23,16 +23,35 @@ class _$UserTearOff {
 
   _User call(
       {required int id,
-      required String username,
+      @JsonKey(defaultValue: "")
+          required String uuid,
       String? email,
-      @JsonKey(name: 'first_name', defaultValue: "") required String firstName,
-      @JsonKey(name: 'last_name', defaultValue: "") required String lastName}) {
+      @JsonKey(defaultValue: "")
+          required String name,
+      @JsonKey(name: 'phone_number', defaultValue: "")
+          required String phoneNumber,
+      @JsonKey(defaultValue: "en")
+          required String language,
+      @JsonKey(name: 'is_email_confirmed', defaultValue: false)
+          required bool isEmailConfirmed,
+      @JsonKey(name: 'is_phone_number_confirmed', defaultValue: false)
+          required bool isPhoneNumberConfirmed,
+      @JsonKey(name: 'is_2fa_enabled', defaultValue: false)
+          required bool is2faEnabled,
+      DateTime? createdAt,
+      String? password}) {
     return _User(
       id: id,
-      username: username,
+      uuid: uuid,
       email: email,
-      firstName: firstName,
-      lastName: lastName,
+      name: name,
+      phoneNumber: phoneNumber,
+      language: language,
+      isEmailConfirmed: isEmailConfirmed,
+      isPhoneNumberConfirmed: isPhoneNumberConfirmed,
+      is2faEnabled: is2faEnabled,
+      createdAt: createdAt,
+      password: password,
     );
   }
 
@@ -47,12 +66,23 @@ const $User = _$UserTearOff();
 /// @nodoc
 mixin _$User {
   int get id => throw _privateConstructorUsedError;
-  String get username => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: "")
+  String get uuid => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
-  @JsonKey(name: 'first_name', defaultValue: "")
-  String get firstName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'last_name', defaultValue: "")
-  String get lastName => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: "")
+  String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'phone_number', defaultValue: "")
+  String get phoneNumber => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: "en")
+  String get language => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_email_confirmed', defaultValue: false)
+  bool get isEmailConfirmed => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_phone_number_confirmed', defaultValue: false)
+  bool get isPhoneNumberConfirmed => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_2fa_enabled', defaultValue: false)
+  bool get is2faEnabled => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  String? get password => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -65,10 +95,23 @@ abstract class $UserCopyWith<$Res> {
       _$UserCopyWithImpl<$Res>;
   $Res call(
       {int id,
-      String username,
+      @JsonKey(defaultValue: "")
+          String uuid,
       String? email,
-      @JsonKey(name: 'first_name', defaultValue: "") String firstName,
-      @JsonKey(name: 'last_name', defaultValue: "") String lastName});
+      @JsonKey(defaultValue: "")
+          String name,
+      @JsonKey(name: 'phone_number', defaultValue: "")
+          String phoneNumber,
+      @JsonKey(defaultValue: "en")
+          String language,
+      @JsonKey(name: 'is_email_confirmed', defaultValue: false)
+          bool isEmailConfirmed,
+      @JsonKey(name: 'is_phone_number_confirmed', defaultValue: false)
+          bool isPhoneNumberConfirmed,
+      @JsonKey(name: 'is_2fa_enabled', defaultValue: false)
+          bool is2faEnabled,
+      DateTime? createdAt,
+      String? password});
 }
 
 /// @nodoc
@@ -82,32 +125,62 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
-    Object? username = freezed,
+    Object? uuid = freezed,
     Object? email = freezed,
-    Object? firstName = freezed,
-    Object? lastName = freezed,
+    Object? name = freezed,
+    Object? phoneNumber = freezed,
+    Object? language = freezed,
+    Object? isEmailConfirmed = freezed,
+    Object? isPhoneNumberConfirmed = freezed,
+    Object? is2faEnabled = freezed,
+    Object? createdAt = freezed,
+    Object? password = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      username: username == freezed
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
+      uuid: uuid == freezed
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
               as String,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      firstName: firstName == freezed
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      lastName: lastName == freezed
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
+      phoneNumber: phoneNumber == freezed
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
+      language: language == freezed
+          ? _value.language
+          : language // ignore: cast_nullable_to_non_nullable
+              as String,
+      isEmailConfirmed: isEmailConfirmed == freezed
+          ? _value.isEmailConfirmed
+          : isEmailConfirmed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isPhoneNumberConfirmed: isPhoneNumberConfirmed == freezed
+          ? _value.isPhoneNumberConfirmed
+          : isPhoneNumberConfirmed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      is2faEnabled: is2faEnabled == freezed
+          ? _value.is2faEnabled
+          : is2faEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      password: password == freezed
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -119,10 +192,23 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   @override
   $Res call(
       {int id,
-      String username,
+      @JsonKey(defaultValue: "")
+          String uuid,
       String? email,
-      @JsonKey(name: 'first_name', defaultValue: "") String firstName,
-      @JsonKey(name: 'last_name', defaultValue: "") String lastName});
+      @JsonKey(defaultValue: "")
+          String name,
+      @JsonKey(name: 'phone_number', defaultValue: "")
+          String phoneNumber,
+      @JsonKey(defaultValue: "en")
+          String language,
+      @JsonKey(name: 'is_email_confirmed', defaultValue: false)
+          bool isEmailConfirmed,
+      @JsonKey(name: 'is_phone_number_confirmed', defaultValue: false)
+          bool isPhoneNumberConfirmed,
+      @JsonKey(name: 'is_2fa_enabled', defaultValue: false)
+          bool is2faEnabled,
+      DateTime? createdAt,
+      String? password});
 }
 
 /// @nodoc
@@ -137,32 +223,62 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? username = freezed,
+    Object? uuid = freezed,
     Object? email = freezed,
-    Object? firstName = freezed,
-    Object? lastName = freezed,
+    Object? name = freezed,
+    Object? phoneNumber = freezed,
+    Object? language = freezed,
+    Object? isEmailConfirmed = freezed,
+    Object? isPhoneNumberConfirmed = freezed,
+    Object? is2faEnabled = freezed,
+    Object? createdAt = freezed,
+    Object? password = freezed,
   }) {
     return _then(_User(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      username: username == freezed
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
+      uuid: uuid == freezed
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
               as String,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      firstName: firstName == freezed
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      lastName: lastName == freezed
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
+      phoneNumber: phoneNumber == freezed
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
+      language: language == freezed
+          ? _value.language
+          : language // ignore: cast_nullable_to_non_nullable
+              as String,
+      isEmailConfirmed: isEmailConfirmed == freezed
+          ? _value.isEmailConfirmed
+          : isEmailConfirmed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isPhoneNumberConfirmed: isPhoneNumberConfirmed == freezed
+          ? _value.isPhoneNumberConfirmed
+          : isPhoneNumberConfirmed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      is2faEnabled: is2faEnabled == freezed
+          ? _value.is2faEnabled
+          : is2faEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      password: password == freezed
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -172,10 +288,23 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 class _$_User extends _User {
   _$_User(
       {required this.id,
-      required this.username,
+      @JsonKey(defaultValue: "")
+          required this.uuid,
       this.email,
-      @JsonKey(name: 'first_name', defaultValue: "") required this.firstName,
-      @JsonKey(name: 'last_name', defaultValue: "") required this.lastName})
+      @JsonKey(defaultValue: "")
+          required this.name,
+      @JsonKey(name: 'phone_number', defaultValue: "")
+          required this.phoneNumber,
+      @JsonKey(defaultValue: "en")
+          required this.language,
+      @JsonKey(name: 'is_email_confirmed', defaultValue: false)
+          required this.isEmailConfirmed,
+      @JsonKey(name: 'is_phone_number_confirmed', defaultValue: false)
+          required this.isPhoneNumberConfirmed,
+      @JsonKey(name: 'is_2fa_enabled', defaultValue: false)
+          required this.is2faEnabled,
+      this.createdAt,
+      this.password})
       : super._();
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
@@ -183,19 +312,36 @@ class _$_User extends _User {
   @override
   final int id;
   @override
-  final String username;
+  @JsonKey(defaultValue: "")
+  final String uuid;
   @override
   final String? email;
   @override
-  @JsonKey(name: 'first_name', defaultValue: "")
-  final String firstName;
+  @JsonKey(defaultValue: "")
+  final String name;
   @override
-  @JsonKey(name: 'last_name', defaultValue: "")
-  final String lastName;
+  @JsonKey(name: 'phone_number', defaultValue: "")
+  final String phoneNumber;
+  @override
+  @JsonKey(defaultValue: "en")
+  final String language;
+  @override
+  @JsonKey(name: 'is_email_confirmed', defaultValue: false)
+  final bool isEmailConfirmed;
+  @override
+  @JsonKey(name: 'is_phone_number_confirmed', defaultValue: false)
+  final bool isPhoneNumberConfirmed;
+  @override
+  @JsonKey(name: 'is_2fa_enabled', defaultValue: false)
+  final bool is2faEnabled;
+  @override
+  final DateTime? createdAt;
+  @override
+  final String? password;
 
   @override
   String toString() {
-    return 'User(id: $id, username: $username, email: $email, firstName: $firstName, lastName: $lastName)';
+    return 'User(id: $id, uuid: $uuid, email: $email, name: $name, phoneNumber: $phoneNumber, language: $language, isEmailConfirmed: $isEmailConfirmed, isPhoneNumberConfirmed: $isPhoneNumberConfirmed, is2faEnabled: $is2faEnabled, createdAt: $createdAt, password: $password)';
   }
 
   @override
@@ -204,20 +350,36 @@ class _$_User extends _User {
         (other.runtimeType == runtimeType &&
             other is _User &&
             const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.username, username) &&
+            const DeepCollectionEquality().equals(other.uuid, uuid) &&
             const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality().equals(other.firstName, firstName) &&
-            const DeepCollectionEquality().equals(other.lastName, lastName));
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality()
+                .equals(other.phoneNumber, phoneNumber) &&
+            const DeepCollectionEquality().equals(other.language, language) &&
+            const DeepCollectionEquality()
+                .equals(other.isEmailConfirmed, isEmailConfirmed) &&
+            const DeepCollectionEquality()
+                .equals(other.isPhoneNumberConfirmed, isPhoneNumberConfirmed) &&
+            const DeepCollectionEquality()
+                .equals(other.is2faEnabled, is2faEnabled) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality().equals(other.password, password));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(username),
+      const DeepCollectionEquality().hash(uuid),
       const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(firstName),
-      const DeepCollectionEquality().hash(lastName));
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(phoneNumber),
+      const DeepCollectionEquality().hash(language),
+      const DeepCollectionEquality().hash(isEmailConfirmed),
+      const DeepCollectionEquality().hash(isPhoneNumberConfirmed),
+      const DeepCollectionEquality().hash(is2faEnabled),
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(password));
 
   @JsonKey(ignore: true)
   @override
@@ -233,12 +395,23 @@ class _$_User extends _User {
 abstract class _User extends User {
   factory _User(
       {required int id,
-      required String username,
+      @JsonKey(defaultValue: "")
+          required String uuid,
       String? email,
-      @JsonKey(name: 'first_name', defaultValue: "")
-          required String firstName,
-      @JsonKey(name: 'last_name', defaultValue: "")
-          required String lastName}) = _$_User;
+      @JsonKey(defaultValue: "")
+          required String name,
+      @JsonKey(name: 'phone_number', defaultValue: "")
+          required String phoneNumber,
+      @JsonKey(defaultValue: "en")
+          required String language,
+      @JsonKey(name: 'is_email_confirmed', defaultValue: false)
+          required bool isEmailConfirmed,
+      @JsonKey(name: 'is_phone_number_confirmed', defaultValue: false)
+          required bool isPhoneNumberConfirmed,
+      @JsonKey(name: 'is_2fa_enabled', defaultValue: false)
+          required bool is2faEnabled,
+      DateTime? createdAt,
+      String? password}) = _$_User;
   _User._() : super._();
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
@@ -246,15 +419,32 @@ abstract class _User extends User {
   @override
   int get id;
   @override
-  String get username;
+  @JsonKey(defaultValue: "")
+  String get uuid;
   @override
   String? get email;
   @override
-  @JsonKey(name: 'first_name', defaultValue: "")
-  String get firstName;
+  @JsonKey(defaultValue: "")
+  String get name;
   @override
-  @JsonKey(name: 'last_name', defaultValue: "")
-  String get lastName;
+  @JsonKey(name: 'phone_number', defaultValue: "")
+  String get phoneNumber;
+  @override
+  @JsonKey(defaultValue: "en")
+  String get language;
+  @override
+  @JsonKey(name: 'is_email_confirmed', defaultValue: false)
+  bool get isEmailConfirmed;
+  @override
+  @JsonKey(name: 'is_phone_number_confirmed', defaultValue: false)
+  bool get isPhoneNumberConfirmed;
+  @override
+  @JsonKey(name: 'is_2fa_enabled', defaultValue: false)
+  bool get is2faEnabled;
+  @override
+  DateTime? get createdAt;
+  @override
+  String? get password;
   @override
   @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith => throw _privateConstructorUsedError;

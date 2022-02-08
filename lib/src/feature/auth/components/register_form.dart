@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_skeleton/src/core/app/shared_enums.dart';
 import 'package:flutter_skeleton/src/core/base_component.dart';
 import 'package:flutter_skeleton/src/feature/auth/providers/register_form_provider.dart';
 
@@ -23,10 +24,24 @@ class RegisterForm extends BaseComponent {
             children: [
               TextFormField(
                 decoration: const InputDecoration(
+                  label: Text("Your Name"),
+                ),
+                controller: _registerFormProvider.nameController,
+                validator: _registerFormProvider.nameValidator,
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
                   label: Text("Email"),
                 ),
                 controller: _registerFormProvider.emailController,
                 validator: _registerFormProvider.emailValidator,
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  label: Text("Phone Number"),
+                ),
+                controller: _registerFormProvider.phoneNumberController,
+                validator: _registerFormProvider.phoneNumberValidator,
               ),
               TextFormField(
                 decoration: const InputDecoration(
@@ -48,24 +63,23 @@ class RegisterForm extends BaseComponent {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
-                    onPressed:
-                        _registerFormModel.status == RegisterFormStatus.Empty
-                            ? null
-                            : () {
-                                _registerFormProvider.clear();
-                              },
+                    onPressed: _registerFormModel.status == FormStatus.Empty
+                        ? null
+                        : () {
+                            _registerFormProvider.clear();
+                          },
                     child: const Text("Clear"),
                   ),
                   ElevatedButton(
-                    onPressed: _registerFormModel.status ==
-                            RegisterFormStatus.Processing
-                        ? null
-                        : () {
-                            if (!_formKey.currentState!.validate()) {
-                              return;
-                            }
-                            _registerFormProvider.submit();
-                          },
+                    onPressed:
+                        _registerFormModel.status == FormStatus.Processing
+                            ? null
+                            : () {
+                                if (!_formKey.currentState!.validate()) {
+                                  return;
+                                }
+                                _registerFormProvider.submit();
+                              },
                     child: const Text("Register"),
                   ),
                 ],

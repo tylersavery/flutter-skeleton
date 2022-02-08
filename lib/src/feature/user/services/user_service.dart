@@ -5,16 +5,16 @@ import 'package:flutter_skeleton/src/feature/user/models/user.dart';
 class UserService extends ApiService {
   Future<User> me() async {
     try {
-      final response = await getHttp('/user/me');
+      final response = await getHttp('/user/current');
       return User.fromJson(response);
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<User> retrieve(int id) async {
+  Future<User> retrieve(String uuid) async {
     try {
-      final response = await getHttp('/user/$id');
+      final response = await getHttp('/user/$uuid');
       return User.fromJson(response);
     } catch (e) {
       rethrow;

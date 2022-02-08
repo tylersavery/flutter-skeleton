@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_skeleton/src/app.dart';
 import 'package:flutter_skeleton/src/core/app/env.dart';
 import 'package:flutter_skeleton/src/core/app/loading_provider.dart';
 import 'package:flutter_skeleton/src/core/app/session_provider.dart';
@@ -94,13 +93,15 @@ class LoginFormProvider extends StateNotifier<LoginFormModel> {
   }
 
   Future<void> forgotPassword() async {
-    final email = await PromptModal.show(
+    final data = await PromptModal.show(
       title: "Reset Password",
       labelText: "Your email address",
       validator: formValidatorEmail,
     );
 
-    if (email == null) return;
+    if (data == null || data.isEmpty) return;
+
+    final email = data.first;
 
     final success = await AuthService().requestPasswordReset(email: email);
     if (success) {
@@ -112,19 +113,35 @@ class LoginFormProvider extends StateNotifier<LoginFormModel> {
 
   Future<void> submit() async {
     _updateState(status: LoginFormStatus.Processing);
+
     read(loadingProvider.notifier).start();
 
-    final token = await AuthService().login(email, password);
+    final loginResult =
+        await AuthService().login(email: email, password: password);
 
-    if (token != null) {
-      await read(sessionProvider.notifier).setToken(token);
-      read(loadingProvider.notifier).complete();
+    if (loginResult != null) {
+      if (loginResult.twoFa) {
+        read(sessionProvider.notifier).setMetaData('email', email);
+        read(sessionProvider.notifier).setMetaData('password', password);
 
-      singleton<AppRouter>().push(const DashboardContainerRoute());
-      Toast.message("Welcome back!");
-      clear();
+        singleton<AppRouter>().push(const TwoFactorConfirmationScreenRoute());
+        Toast.message(
+            "A confirmation code has been sent to your phone number.");
+        read(loadingProvider.notifier).complete();
 
-      return;
+        return;
+      }
+
+      if (loginResult.token != null) {
+        await read(sessionProvider.notifier).setToken(loginResult.token!);
+        read(loadingProvider.notifier).complete();
+
+        singleton<AppRouter>().push(const DashboardContainerRoute());
+        Toast.message("Welcome back!");
+        clear();
+
+        return;
+      }
     }
 
     read(loadingProvider.notifier).complete();

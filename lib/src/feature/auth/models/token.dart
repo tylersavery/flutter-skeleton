@@ -11,8 +11,13 @@ class Token {
 
   String access;
   String refresh;
+  bool twoFA;
 
-  Token({required this.access, required this.refresh});
+  Token({
+    required this.access,
+    required this.refresh,
+    this.twoFA = false,
+  });
 
   factory Token.fromJson(json) {
     return Token(access: json['access'], refresh: json['refresh']);
@@ -20,6 +25,9 @@ class Token {
 
   factory Token.empty() {
     return Token(access: "", refresh: "");
+  }
+  factory Token.twoFA() {
+    return Token(access: "", refresh: "", twoFA: true);
   }
 
   factory Token.fromStorage() {

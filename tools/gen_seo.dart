@@ -179,6 +179,4 @@ const url = '${route.apiUrl}'.replace(":id", id);
   await File(pathToJs).writeAsString(jsOutput);
 
   await copyHtml();
-
-  print("SEO Compiled");
 }

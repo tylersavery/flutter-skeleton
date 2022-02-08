@@ -7,20 +7,20 @@ import 'package:flutter_skeleton/src/feature/user/components/profile.dart';
 import 'package:flutter_skeleton/src/feature/user/providers/user_detail_provider.dart';
 
 class ProfileScreen extends BaseScreen {
-  final int id;
-  const ProfileScreen({Key? key, @PathParam('id') required this.id})
+  final String uuid;
+  const ProfileScreen({Key? key, @PathParam('uuid') required this.uuid})
       : super(key: key);
 
   @override
   AppBar? appBar(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userDetailProvider(id));
+    final user = ref.watch(userDetailProvider(uuid));
 
     return user.when(
       loading: () => AppBar(
         title: const Text("Profile"),
       ),
       data: (user) => AppBar(
-        title: Text(user.fullName),
+        title: Text(user.name),
       ),
       error: (_, __) => AppBar(
         title: const Text("Error"),
@@ -30,7 +30,7 @@ class ProfileScreen extends BaseScreen {
 
   @override
   Widget body(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userDetailProvider(id));
+    final user = ref.watch(userDetailProvider(uuid));
 
     return user.when(
       data: (user) => Profile(user: user),

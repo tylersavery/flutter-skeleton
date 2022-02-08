@@ -18,21 +18,28 @@ class SessionModel {
   final User? user;
   final bool isAuthenticated;
   final bool ready;
+  final Map<String, dynamic> metaData;
 
   const SessionModel({
     this.token,
     this.isAuthenticated = false,
     this.user,
     this.ready = false,
+    this.metaData = const {},
   });
 
   SessionModel copyWith(
-      {Token? token, User? user, bool? isAuthenticated, bool? ready}) {
+      {Token? token,
+      User? user,
+      bool? isAuthenticated,
+      bool? ready,
+      Map<String, dynamic>? metaData}) {
     return SessionModel(
       token: token ?? this.token,
       isAuthenticated: isAuthenticated ?? this.isAuthenticated,
       user: user ?? this.user,
       ready: ready ?? this.ready,
+      metaData: metaData ?? this.metaData,
     );
   }
 }
@@ -123,6 +130,15 @@ class SessionProvider extends StateNotifier<SessionModel> {
     final context = rootNavigatorKey.currentContext!;
     AutoRouter.of(context).replace(const AuthLandingScreenRoute());
     return true;
+  }
+
+  void setMetaData(String key, String value) {
+    Map<String, dynamic> metaData = {...state.metaData};
+    metaData[key] = value;
+
+    state = state.copyWith(
+      metaData: metaData,
+    );
   }
 }
 
