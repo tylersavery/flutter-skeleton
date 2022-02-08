@@ -11,8 +11,10 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i10;
-import 'package:flutter/material.dart' as _i16;
+import 'package:flutter/material.dart' as _i17;
 import 'package:flutter_skeleton/src/core/dashboard.dart' as _i9;
+import 'package:flutter_skeleton/src/feature/audio/screens/queue_screen.dart'
+    as _i13;
 import 'package:flutter_skeleton/src/feature/auth/screens/auth_landing_screen.dart'
     as _i1;
 import 'package:flutter_skeleton/src/feature/auth/screens/email_change_confirmation_screen.dart'
@@ -26,7 +28,7 @@ import 'package:flutter_skeleton/src/feature/auth/screens/two_factor_confirmatio
 import 'package:flutter_skeleton/src/feature/auth/screens/update_password_screen.dart'
     as _i7;
 import 'package:flutter_skeleton/src/feature/category/screens/category_list_screen.dart'
-    as _i13;
+    as _i14;
 import 'package:flutter_skeleton/src/feature/home/home_screen.dart' as _i11;
 import 'package:flutter_skeleton/src/feature/placeholder/placeholder_screen.dart'
     as _i12;
@@ -35,12 +37,12 @@ import 'package:flutter_skeleton/src/feature/settings/settings_screen.dart'
 import 'package:flutter_skeleton/src/feature/user/screens/edit_profile_screen.dart'
     as _i6;
 import 'package:flutter_skeleton/src/feature/user/screens/profile_screen.dart'
-    as _i15;
+    as _i16;
 import 'package:flutter_skeleton/src/feature/user/screens/user_list_screen.dart'
-    as _i14;
+    as _i15;
 
 class AppRouter extends _i10.RootStackRouter {
-  AppRouter([_i16.GlobalKey<_i16.NavigatorState>? navigatorKey])
+  AppRouter([_i17.GlobalKey<_i17.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
@@ -112,13 +114,17 @@ class AppRouter extends _i10.RootStackRouter {
       return _i10.AdaptivePage<dynamic>(
           routeData: routeData, child: const _i12.PlaceholderScreen());
     },
+    QueueScreenRoute.name: (routeData) {
+      return _i10.AdaptivePage<dynamic>(
+          routeData: routeData, child: const _i13.QueueScreen());
+    },
     CategoryListScreenRoute.name: (routeData) {
       return _i10.AdaptivePage<dynamic>(
-          routeData: routeData, child: const _i13.CategoryListScreen());
+          routeData: routeData, child: const _i14.CategoryListScreen());
     },
     UserListScreenRoute.name: (routeData) {
       return _i10.AdaptivePage<dynamic>(
-          routeData: routeData, child: const _i14.UserListScreen());
+          routeData: routeData, child: const _i15.UserListScreen());
     },
     ProfileScreenRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
@@ -127,7 +133,7 @@ class AppRouter extends _i10.RootStackRouter {
               ProfileScreenRouteArgs(uuid: pathParams.getString('uuid')));
       return _i10.AdaptivePage<dynamic>(
           routeData: routeData,
-          child: _i15.ProfileScreen(key: args.key, uuid: args.uuid));
+          child: _i16.ProfileScreen(key: args.key, uuid: args.uuid));
     }
   };
 
@@ -160,7 +166,9 @@ class AppRouter extends _i10.RootStackRouter {
                     _i10.RouteConfig(HomeScreenRoute.name,
                         path: '', parent: HomeTabRouter.name),
                     _i10.RouteConfig(PlaceholderScreenRoute.name,
-                        path: 'placeholder', parent: HomeTabRouter.name)
+                        path: 'placeholder', parent: HomeTabRouter.name),
+                    _i10.RouteConfig(QueueScreenRoute.name,
+                        path: 'queue', parent: HomeTabRouter.name)
                   ]),
               _i10.RouteConfig(CategoryTabRouter.name,
                   path: 'categories',
@@ -247,7 +255,7 @@ class EditProfileScreenRoute extends _i10.PageRouteInfo<void> {
 /// [_i7.UpdatePasswordScreen]
 class UpdatePasswordScreenRoute
     extends _i10.PageRouteInfo<UpdatePasswordScreenRouteArgs> {
-  UpdatePasswordScreenRoute({_i16.Key? key, required String token})
+  UpdatePasswordScreenRoute({_i17.Key? key, required String token})
       : super(UpdatePasswordScreenRoute.name,
             path: '/update-password/:token',
             args: UpdatePasswordScreenRouteArgs(key: key, token: token),
@@ -259,7 +267,7 @@ class UpdatePasswordScreenRoute
 class UpdatePasswordScreenRouteArgs {
   const UpdatePasswordScreenRouteArgs({this.key, required this.token});
 
-  final _i16.Key? key;
+  final _i17.Key? key;
 
   final String token;
 
@@ -273,7 +281,7 @@ class UpdatePasswordScreenRouteArgs {
 /// [_i8.EmailChangeConfirmationScreen]
 class EmailChangeConfirmationScreenRoute
     extends _i10.PageRouteInfo<EmailChangeConfirmationScreenRouteArgs> {
-  EmailChangeConfirmationScreenRoute({_i16.Key? key, required String token})
+  EmailChangeConfirmationScreenRoute({_i17.Key? key, required String token})
       : super(EmailChangeConfirmationScreenRoute.name,
             path: '/email-change/:token',
             args:
@@ -286,7 +294,7 @@ class EmailChangeConfirmationScreenRoute
 class EmailChangeConfirmationScreenRouteArgs {
   const EmailChangeConfirmationScreenRouteArgs({this.key, required this.token});
 
-  final _i16.Key? key;
+  final _i17.Key? key;
 
   final String token;
 
@@ -352,7 +360,15 @@ class PlaceholderScreenRoute extends _i10.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.CategoryListScreen]
+/// [_i13.QueueScreen]
+class QueueScreenRoute extends _i10.PageRouteInfo<void> {
+  const QueueScreenRoute() : super(QueueScreenRoute.name, path: 'queue');
+
+  static const String name = 'QueueScreenRoute';
+}
+
+/// generated route for
+/// [_i14.CategoryListScreen]
 class CategoryListScreenRoute extends _i10.PageRouteInfo<void> {
   const CategoryListScreenRoute()
       : super(CategoryListScreenRoute.name, path: '');
@@ -361,7 +377,7 @@ class CategoryListScreenRoute extends _i10.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i14.UserListScreen]
+/// [_i15.UserListScreen]
 class UserListScreenRoute extends _i10.PageRouteInfo<void> {
   const UserListScreenRoute() : super(UserListScreenRoute.name, path: '');
 
@@ -369,9 +385,9 @@ class UserListScreenRoute extends _i10.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i15.ProfileScreen]
+/// [_i16.ProfileScreen]
 class ProfileScreenRoute extends _i10.PageRouteInfo<ProfileScreenRouteArgs> {
-  ProfileScreenRoute({_i16.Key? key, required String uuid})
+  ProfileScreenRoute({_i17.Key? key, required String uuid})
       : super(ProfileScreenRoute.name,
             path: ':uuid',
             args: ProfileScreenRouteArgs(key: key, uuid: uuid),
@@ -383,7 +399,7 @@ class ProfileScreenRoute extends _i10.PageRouteInfo<ProfileScreenRouteArgs> {
 class ProfileScreenRouteArgs {
   const ProfileScreenRouteArgs({this.key, required this.uuid});
 
-  final _i16.Key? key;
+  final _i17.Key? key;
 
   final String uuid;
 
