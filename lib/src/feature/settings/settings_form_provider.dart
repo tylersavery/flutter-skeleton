@@ -10,6 +10,7 @@ import 'package:flutter_skeleton/src/feature/auth/services/auth_service.dart';
 import 'package:flutter_skeleton/src/feature/locale/locale_provider.dart';
 import 'package:flutter_skeleton/src/feature/theme/theme_provider.dart';
 import 'package:flutter_skeleton/src/feature/user/models/user.dart';
+import 'package:flutter_skeleton/src/feature/user/services/user_service.dart';
 import 'package:flutter_skeleton/src/utils/strings.dart';
 import 'package:flutter_skeleton/src/utils/toast.dart';
 import 'package:flutter_skeleton/src/utils/validation.dart';
@@ -66,9 +67,11 @@ class SettingsFormProvider extends StateNotifier<SettingsFormModel> {
     return LocaleProvider.supportedLocales;
   }
 
-  void setLocale(Locale locale) {
+  void setLocale(Locale locale) async {
     read(localeProvider.notifier).setLocale(locale);
     state = state.copyWith(locale: locale);
+
+    await UserService().updateMe({'language': locale.languageCode});
   }
 
   // Session

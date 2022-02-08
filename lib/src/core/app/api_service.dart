@@ -87,4 +87,26 @@ class ApiService {
       rethrow;
     }
   }
+
+  Future<Map<String, dynamic>> patchHttp(
+    String path, {
+    Map<String, dynamic> params = const {},
+    bool auth = true,
+  }) async {
+    try {
+      var response = await Dio(_options(auth: auth)).patch(
+        _cleanPath(path),
+        data: params,
+      );
+      if (response.statusCode == 204) {
+        return {};
+      }
+      if (response.data == null) {
+        return {};
+      }
+      return response.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

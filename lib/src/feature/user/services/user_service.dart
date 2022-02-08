@@ -43,4 +43,13 @@ class UserService extends ApiService {
       return PaginatedResponse.empty();
     }
   }
+
+  Future<User> updateMe(Map<String, dynamic> params) async {
+    try {
+      final response = await patchHttp('/user/current', params: params);
+      return User.fromJson(response);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
