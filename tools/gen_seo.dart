@@ -1,11 +1,13 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_skeleton/src/config/seo/seo.dart';
 import 'package:path/path.dart';
 
-// ignore: constant_identifier_names
 const DEBUG_BOT = true;
+const GENERATE_SEO = true;
 
 String camelCase(String string) {
   return string; //TODO: implement
@@ -57,6 +59,10 @@ Future<void> copyHtml() async {
 }
 
 void main() async {
+  if (!GENERATE_SEO) {
+    return;
+  }
+
   Map<String, dynamic> config = {
     "hosting": {
       "public": "build/web",

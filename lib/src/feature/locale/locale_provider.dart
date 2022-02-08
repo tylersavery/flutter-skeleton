@@ -72,8 +72,6 @@ class LocaleProvider extends StateNotifier<Locale> {
     switch (str) {
       case 'en':
         return localize ? S.of(context).languageEnglish : "English";
-      case 'es_US':
-        return localize ? S.of(context).languageSpanishUS : "Español (EE. UU.)";
       case 'ja_JP':
         return localize ? S.of(context).languageJapanese : "日本";
       default:

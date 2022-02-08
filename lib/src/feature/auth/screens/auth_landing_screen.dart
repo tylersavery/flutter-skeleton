@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_skeleton/src/core/app/session_provider.dart';
 import 'package:flutter_skeleton/src/core/app/singletons.dart';
+import 'package:flutter_skeleton/src/core/app_router.dart';
 import 'package:flutter_skeleton/src/core/app_router.gr.dart';
 import 'package:flutter_skeleton/src/core/base_screen.dart';
 import 'package:flutter_skeleton/src/core/components/centered_loader.dart';
@@ -25,11 +27,6 @@ class _AuthLandingScreenState extends BaseScreenState<AuthLandingScreen> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   void _handleSession(SessionModel session) {
     if (session.ready) {
       setState(() {
@@ -45,9 +42,13 @@ class _AuthLandingScreenState extends BaseScreenState<AuthLandingScreen> {
   }
 
   @override
-  Widget body(BuildContext context) {
+  void initState() {
+    super.initState();
     _handleSession(ref.read(sessionProvider));
+  }
 
+  @override
+  Widget body(BuildContext context) {
     ref.listen<SessionModel>(sessionProvider, (prev, next) {
       _handleSession(next);
     });
@@ -62,7 +63,9 @@ class _AuthLandingScreenState extends BaseScreenState<AuthLandingScreen> {
         children: [
           ElevatedButton(
               onPressed: () {
-                AutoRouter.of(context).push(const LoginScreenRoute());
+                // AutoRouter.of(context)
+                //     .replace(const AuthRouter(children: [LoginScreenRoute()]));
+                AutoRouter.of(context).replace(const LoginScreenRoute());
               },
               child: const Text("Login")),
           const SizedBox(
@@ -70,7 +73,9 @@ class _AuthLandingScreenState extends BaseScreenState<AuthLandingScreen> {
           ),
           ElevatedButton(
               onPressed: () {
-                AutoRouter.of(context).push(const RegisterScreenRoute());
+                // AutoRouter.of(context).replace(
+                //     const AuthRouter(children: [RegisterScreenRoute()]));
+                AutoRouter.of(context).replace(const RegisterScreenRoute());
               },
               child: const Text("Register")),
           const SizedBox(
@@ -78,7 +83,7 @@ class _AuthLandingScreenState extends BaseScreenState<AuthLandingScreen> {
           ),
           TextButton(
               onPressed: () {
-                AutoRouter.of(context).push(const DashboardContainerRoute());
+                AutoRouter.of(context).replace(const DashboardContainerRoute());
               },
               child: const Text("Continue as Guest")),
         ],

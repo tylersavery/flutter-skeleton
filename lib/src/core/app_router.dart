@@ -16,7 +16,11 @@ import 'package:flutter_skeleton/src/feature/user/screens/user_list_screen.dart'
 
 const List<AutoRoute> appRoutes = [
   AutoRoute(initial: true, path: '/', page: AuthLandingScreen),
-  authRouter,
+  // authRouter,
+  AutoRoute(path: '/auth/login', page: LoginScreen),
+  AutoRoute(path: '/auth/register', page: RegisterScreen),
+  AutoRoute(
+      path: '/auth/confirm/phone-number', page: TwoFactorConfirmationScreen),
   AutoRoute(path: '/settings', page: SettingsScreen),
   AutoRoute(path: '/settings/profile', page: EditProfileScreen),
   AutoRoute(path: '/update-password/:token', page: UpdatePasswordScreen),
@@ -30,6 +34,7 @@ class $AppRouter {}
 
 const authRouter = AutoRoute(
   path: "/auth",
+  name: "AuthRouter",
   page: EmptyRouterPage,
   children: [
     AutoRoute(path: 'login', page: LoginScreen),
@@ -41,7 +46,6 @@ const authRouter = AutoRoute(
 const dashboardTabRouter = AutoRoute(
   path: "/dashboard",
   page: DashboardContainer,
-  initial: true,
   children: [
     RedirectRoute(path: "", redirectTo: "/home"),
     AutoRoute(
