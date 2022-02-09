@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_skeleton/generated/l10n.dart';
 import 'package:flutter_skeleton/src/core/app_router.gr.dart';
 import 'package:flutter_skeleton/src/core/base_component.dart';
+import 'package:flutter_skeleton/src/feature/audio/components/audio_player.dart';
+import 'package:flutter_skeleton/src/feature/audio/components/mini_player.dart';
 
 class DashboardContainer extends BaseComponent {
   const DashboardContainer({Key? key}) : super(key: key);
@@ -38,6 +40,9 @@ class DashboardContainer extends BaseComponent {
           ],
         );
       },
+      builder: (context, child, animated) => _ContentWrapper(
+        child: child,
+      ),
     );
   }
 
@@ -96,6 +101,43 @@ class DashboardContainer extends BaseComponent {
           ),
         );
       },
+      builder: (context, child, animated) => _ContentWrapper(
+        child: child,
+      ),
+    );
+  }
+}
+
+class _ContentWrapper extends BaseComponent {
+  final Widget child;
+  const _ContentWrapper({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  Widget body(BuildContext context, WidgetRef ref) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          child: child,
+        ),
+        const MiniPlayer()
+      ],
+    );
+  }
+
+  @override
+  Widget desktopBody(BuildContext context, WidgetRef ref) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          child: child,
+        ),
+        const AudioPlayer()
+      ],
     );
   }
 }

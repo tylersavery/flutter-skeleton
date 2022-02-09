@@ -6,6 +6,7 @@ import 'package:flutter_skeleton/src/core/app/singletons.dart';
 import 'package:flutter_skeleton/src/core/app_router.dart';
 import 'package:flutter_skeleton/src/core/app_router.gr.dart';
 import 'package:flutter_skeleton/src/core/base_screen.dart';
+import 'package:flutter_skeleton/src/core/components/buttons.dart';
 import 'package:flutter_skeleton/src/core/components/centered_loader.dart';
 
 // this does not actually need to be a stateful widget but including it this way for reference.
@@ -61,31 +62,31 @@ class _AuthLandingScreenState extends BaseScreenState<AuthLandingScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ElevatedButton(
-              onPressed: () {
-                // AutoRouter.of(context)
-                //     .replace(const AuthRouter(children: [LoginScreenRoute()]));
-                AutoRouter.of(context).replace(const LoginScreenRoute());
-              },
-              child: const Text("Login")),
+          AppButton(
+            onPressed: () {
+              AutoRouter.of(context).replace(const LoginScreenRoute());
+            },
+            label: "Login",
+          ),
           const SizedBox(
             height: 16,
           ),
-          ElevatedButton(
-              onPressed: () {
-                // AutoRouter.of(context).replace(
-                //     const AuthRouter(children: [RegisterScreenRoute()]));
-                AutoRouter.of(context).replace(const RegisterScreenRoute());
-              },
-              child: const Text("Register")),
+          AppButton(
+            onPressed: () {
+              AutoRouter.of(context).replace(const RegisterScreenRoute());
+            },
+            label: "Register",
+          ),
           const SizedBox(
             height: 16,
           ),
-          TextButton(
-              onPressed: () {
-                AutoRouter.of(context).replace(const DashboardContainerRoute());
-              },
-              child: const Text("Continue as Guest")),
+          AppButton(
+            onPressed: () {
+              AutoRouter.of(context).replace(const DashboardContainerRoute());
+            },
+            type: AppButtonType.Text,
+            label: "Continue as Guest",
+          ),
         ],
       ),
     );

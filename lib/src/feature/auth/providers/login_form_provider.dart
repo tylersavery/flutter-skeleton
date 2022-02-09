@@ -114,7 +114,7 @@ class LoginFormProvider extends StateNotifier<LoginFormModel> {
   Future<void> submit() async {
     _updateState(status: LoginFormStatus.Processing);
 
-    read(loadingProvider.notifier).start();
+    // read(loadingProvider.notifier).start();
 
     final loginResult =
         await AuthService().login(email: email, password: password);
@@ -127,24 +127,26 @@ class LoginFormProvider extends StateNotifier<LoginFormModel> {
         singleton<AppRouter>().push(const TwoFactorConfirmationScreenRoute());
         Toast.message(
             "A confirmation code has been sent to your phone number.");
-        read(loadingProvider.notifier).complete();
+        // read(loadingProvider.notifier).complete();
+        _updateState(status: LoginFormStatus.Success);
 
         return;
       }
 
       if (loginResult.token != null) {
         await read(sessionProvider.notifier).setToken(loginResult.token!);
-        read(loadingProvider.notifier).complete();
+        // read(loadingProvider.notifier).complete();
 
         singleton<AppRouter>().push(const DashboardContainerRoute());
         Toast.message("Welcome back!");
         clear();
+        _updateState(status: LoginFormStatus.Success);
 
         return;
       }
     }
 
-    read(loadingProvider.notifier).complete();
+    // read(loadingProvider.notifier).complete();
 
     Toast.error();
   }

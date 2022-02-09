@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_skeleton/src/core/dashboard.dart';
+import 'package:flutter_skeleton/src/feature/audio/screens/queue_screen.dart';
 import 'package:flutter_skeleton/src/feature/auth/screens/auth_landing_screen.dart';
 import 'package:flutter_skeleton/src/feature/auth/screens/email_change_confirmation_screen.dart';
 import 'package:flutter_skeleton/src/feature/auth/screens/login_screen.dart';
@@ -10,17 +11,18 @@ import 'package:flutter_skeleton/src/feature/category/screens/category_list_scre
 import 'package:flutter_skeleton/src/feature/home/home_screen.dart';
 import 'package:flutter_skeleton/src/feature/placeholder/placeholder_screen.dart';
 import 'package:flutter_skeleton/src/feature/settings/settings_screen.dart';
+import 'package:flutter_skeleton/src/feature/theme/styleguide_screen.dart';
 import 'package:flutter_skeleton/src/feature/user/screens/edit_profile_screen.dart';
 import 'package:flutter_skeleton/src/feature/user/screens/profile_screen.dart';
 import 'package:flutter_skeleton/src/feature/user/screens/user_list_screen.dart';
 
 const List<AutoRoute> appRoutes = [
   AutoRoute(initial: true, path: '/', page: AuthLandingScreen),
-  // authRouter,
   AutoRoute(path: '/auth/login', page: LoginScreen),
   AutoRoute(path: '/auth/register', page: RegisterScreen),
   AutoRoute(
       path: '/auth/confirm/phone-number', page: TwoFactorConfirmationScreen),
+  AutoRoute(path: '/style-guide', page: StyleguideScreen),
   AutoRoute(path: '/settings', page: SettingsScreen),
   AutoRoute(path: '/settings/profile', page: EditProfileScreen),
   AutoRoute(path: '/update-password/:token', page: UpdatePasswordScreen),
@@ -31,17 +33,6 @@ const List<AutoRoute> appRoutes = [
 
 @AdaptiveAutoRouter(replaceInRouteName: 'Page,Route,Screen', routes: appRoutes)
 class $AppRouter {}
-
-const authRouter = AutoRoute(
-  path: "/auth",
-  name: "AuthRouter",
-  page: EmptyRouterPage,
-  children: [
-    AutoRoute(path: 'login', page: LoginScreen),
-    AutoRoute(path: 'register', page: RegisterScreen),
-    AutoRoute(path: 'confirm/phone-number', page: TwoFactorConfirmationScreen),
-  ],
-);
 
 const dashboardTabRouter = AutoRoute(
   path: "/dashboard",
@@ -55,6 +46,7 @@ const dashboardTabRouter = AutoRoute(
       children: [
         AutoRoute(path: "", page: HomeScreen),
         AutoRoute(path: "placeholder", page: PlaceholderScreen),
+        AutoRoute(path: "queue", page: QueueScreen)
       ],
     ),
     AutoRoute(

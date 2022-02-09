@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_skeleton/src/core/app/loading_provider.dart';
 import 'package:flutter_skeleton/src/feature/locale/locale_provider.dart';
+import 'package:flutter_skeleton/src/feature/theme/app_theme.dart';
 import "../generated/l10n.dart";
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,8 +45,8 @@ class App extends ConsumerWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      theme: ThemeData(),
-      darkTheme: ThemeData.dark(),
+      theme: AppTheme.light().themeData,
+      darkTheme: AppTheme.dark().themeData,
       themeMode: ref.watch(themeProvider),
       routeInformationParser:
           appRouter.defaultRouteParser(includePrefixMatches: true),
@@ -54,17 +55,6 @@ class App extends ConsumerWidget {
         navigatorObservers: () => [AutoRouteObserver()],
       ),
       builder: (context, widget) {
-        // ref.watch(sessionProvider);
-        // final isReady = ref.read(sessionProvider).ready;
-
-        // if (!isReady) {
-        //   return const Scaffold(
-        //     body: Center(
-        //       child: CircularProgressIndicator(),
-        //     ),
-        //   );
-        // }
-
         return Stack(
           children: [
             ResponsiveWrapper.builder(

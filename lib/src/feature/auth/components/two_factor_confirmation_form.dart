@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_skeleton/src/core/app/shared_enums.dart';
 import 'package:flutter_skeleton/src/core/base_component.dart';
+import 'package:flutter_skeleton/src/core/components/buttons.dart';
 import 'package:flutter_skeleton/src/feature/auth/providers/two_factor_confirmation_form_provider.dart';
 
 class TwoFactorConfirmation extends BaseComponent {
@@ -40,17 +41,16 @@ class TwoFactorConfirmation extends BaseComponent {
                       //   onPressed: _formProvider.resendCode,
                       //   child: const Text("Resend Code"),
                       // ),
-                      ElevatedButton(
-                        onPressed: _formModel.status == FormStatus.Processing
-                            ? null
-                            : () {
-                                if (!_formKey.currentState!.validate()) {
-                                  return;
-                                }
-                                _formProvider.submit();
-                              },
-                        child: const Text("Confirm"),
-                      ),
+                      AppButton(
+                          onPressed: () {
+                            if (!_formKey.currentState!.validate()) {
+                              return;
+                            }
+                            _formProvider.submit();
+                          },
+                          label: "Confirm",
+                          processing:
+                              _formModel.status == FormStatus.Processing),
                     ],
                   )
                 ],

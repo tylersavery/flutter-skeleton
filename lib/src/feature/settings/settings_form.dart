@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_skeleton/generated/l10n.dart';
 import 'package:flutter_skeleton/src/core/base_component.dart';
+import 'package:flutter_skeleton/src/core/components/buttons.dart';
 import 'package:flutter_skeleton/src/feature/locale/locale_provider.dart';
 import 'package:flutter_skeleton/src/feature/settings/settings_form_provider.dart';
+import 'package:flutter_skeleton/src/feature/theme/app_theme.dart';
 
 class SettingsForm extends BaseComponent {
   const SettingsForm({Key? key}) : super(key: key);
@@ -131,17 +133,18 @@ class SettingsForm extends BaseComponent {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         if (_formModel.isAuthenticated)
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                primary: Theme.of(context).colorScheme.error),
+                          AppButton(
+                            variant: AppColorVariant.Danger,
                             onPressed: _form.logout,
-                            child: const Text("Logout"),
+                            label: "Logout",
+                            icon: Icons.logout,
                           ),
                         if (!_formModel.isAuthenticated)
-                          ElevatedButton(
+                          AppButton(
                             onPressed: _form.handleLogin,
-                            child: const Text("Login"),
-                          )
+                            label: "Login",
+                            icon: Icons.login,
+                          ),
                       ],
                     ),
                   ),

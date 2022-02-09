@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_skeleton/src/core/app/shared_enums.dart';
 import 'package:flutter_skeleton/src/core/base_component.dart';
+import 'package:flutter_skeleton/src/core/components/buttons.dart';
 import 'package:flutter_skeleton/src/feature/auth/providers/register_form_provider.dart';
 
 class RegisterForm extends BaseComponent {
@@ -62,25 +63,26 @@ class RegisterForm extends BaseComponent {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextButton(
+                  AppButton(
                     onPressed: _registerFormModel.status == FormStatus.Empty
                         ? null
                         : () {
                             _registerFormProvider.clear();
                           },
-                    child: const Text("Clear"),
+                    label: "Clear",
+                    type: AppButtonType.Text,
                   ),
-                  ElevatedButton(
-                    onPressed:
-                        _registerFormModel.status == FormStatus.Processing
-                            ? null
-                            : () {
-                                if (!_formKey.currentState!.validate()) {
-                                  return;
-                                }
-                                _registerFormProvider.submit();
-                              },
-                    child: const Text("Register"),
+                  AppButton(
+                    onPressed: () {
+                      if (!_formKey.currentState!.validate()) {
+                        return;
+                      }
+                      _registerFormProvider.submit();
+                    },
+                    label: "Register",
+                    processing:
+                        _registerFormModel.status == FormStatus.Processing,
+                    icon: Icons.how_to_reg,
                   ),
                 ],
               )
