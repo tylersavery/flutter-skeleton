@@ -7,6 +7,7 @@ import 'package:flutter_skeleton/src/feature/audio/playback_manager.dart';
 import 'package:flutter_skeleton/src/feature/track/components/bookmark_button.dart';
 import 'package:flutter_skeleton/src/feature/track/components/like_button.dart';
 import 'package:flutter_skeleton/src/feature/track/models/track.dart';
+import 'package:flutter_skeleton/src/feature/theme/app_theme.dart';
 
 class PlayerModal extends BaseComponent {
   const PlayerModal({Key? key}) : super(key: key);
@@ -28,9 +29,9 @@ class PlayerModal extends BaseComponent {
 
           return Container(
             width: double.infinity,
-            decoration: const BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.playerBackground,
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(6.0),
                 topRight: Radius.circular(6.0),
               ),
@@ -96,17 +97,9 @@ class PlayerModal extends BaseComponent {
                                     style:
                                         Theme.of(context).textTheme.subtitle1,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 3),
-                                    child: Text(
-                                      track.artistName,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .subtitle2!
-                                          .copyWith(
-                                            color: Colors.white70,
-                                          ),
-                                    ),
+                                  Text(
+                                    track.artistName,
+                                    style: Theme.of(context).textTheme.caption,
                                   ),
                                 ],
                               ),

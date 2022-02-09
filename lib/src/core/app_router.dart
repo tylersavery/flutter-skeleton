@@ -11,6 +11,7 @@ import 'package:flutter_skeleton/src/feature/category/screens/category_list_scre
 import 'package:flutter_skeleton/src/feature/home/home_screen.dart';
 import 'package:flutter_skeleton/src/feature/placeholder/placeholder_screen.dart';
 import 'package:flutter_skeleton/src/feature/settings/settings_screen.dart';
+import 'package:flutter_skeleton/src/feature/theme/styleguide_screen.dart';
 import 'package:flutter_skeleton/src/feature/user/screens/edit_profile_screen.dart';
 import 'package:flutter_skeleton/src/feature/user/screens/profile_screen.dart';
 import 'package:flutter_skeleton/src/feature/user/screens/user_list_screen.dart';
@@ -21,6 +22,7 @@ const List<AutoRoute> appRoutes = [
   AutoRoute(path: '/auth/register', page: RegisterScreen),
   AutoRoute(
       path: '/auth/confirm/phone-number', page: TwoFactorConfirmationScreen),
+  AutoRoute(path: '/style-guide', page: StyleguideScreen),
   AutoRoute(path: '/settings', page: SettingsScreen),
   AutoRoute(path: '/settings/profile', page: EditProfileScreen),
   AutoRoute(path: '/update-password/:token', page: UpdatePasswordScreen),

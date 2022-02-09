@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_skeleton/src/core/base_component.dart';
+import 'package:flutter_skeleton/src/core/components/buttons.dart';
 import 'package:flutter_skeleton/src/feature/auth/providers/login_form_provider.dart';
 
 class LoginForm extends BaseComponent {
@@ -43,21 +44,21 @@ class LoginForm extends BaseComponent {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextButton(
-                        onPressed: _loginFormProvider.forgotPassword,
-                        child: const Text("Forgot Password"),
-                      ),
-                      ElevatedButton(
-                        onPressed:
-                            _loginFormModel.status == LoginFormStatus.Processing
-                                ? null
-                                : () {
-                                    if (!_formKey.currentState!.validate()) {
-                                      return;
-                                    }
-                                    _loginFormProvider.submit();
-                                  },
-                        child: const Text("Login"),
+                      AppButton(
+                          onPressed: _loginFormProvider.forgotPassword,
+                          label: "Forgot Password",
+                          type: AppButtonType.Text),
+                      AppButton(
+                        onPressed: () {
+                          if (!_formKey.currentState!.validate()) {
+                            return;
+                          }
+                          _loginFormProvider.submit();
+                        },
+                        icon: Icons.login,
+                        label: "Login",
+                        processing: _loginFormModel.status ==
+                            LoginFormStatus.Processing,
                       ),
                     ],
                   )

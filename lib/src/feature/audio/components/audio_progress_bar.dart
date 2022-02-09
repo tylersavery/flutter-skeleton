@@ -5,8 +5,7 @@ import 'package:flutter_skeleton/src/feature/audio/notifiers/progress_notifier.d
 import 'package:flutter_skeleton/src/feature/audio/playback_manager.dart';
 
 class AudioProgressBar extends StatelessWidget {
-  final bool subtle;
-  const AudioProgressBar({Key? key, this.subtle = false}) : super(key: key);
+  const AudioProgressBar({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final _playbackManager = singleton<PlaybackManager>();
@@ -14,12 +13,19 @@ class AudioProgressBar extends StatelessWidget {
     return ValueListenableBuilder<ProgressBarState>(
       valueListenable: _playbackManager.progressNotifier,
       builder: (_, value, __) {
+        final textColor = Theme.of(context).textTheme.bodyText1!.color!;
+
         return ProgressBar(
           progress: value.current,
           buffered: value.buffered,
           total: value.total,
           onSeek: _playbackManager.seek,
-          barHeight: subtle ? 2 : 4,
+          barHeight: 2,
+          thumbRadius: 4,
+          baseBarColor: textColor.withOpacity(0.15),
+          progressBarColor: textColor.withOpacity(0.4),
+          bufferedBarColor: textColor.withOpacity(0.2),
+          thumbColor: Theme.of(context).primaryColor,
         );
       },
     );

@@ -3,10 +3,10 @@ import 'package:flutter_skeleton/src/feature/audio/components/audio_progress_ind
 import 'package:flutter_skeleton/src/feature/audio/components/buttons/play_button.dart';
 import 'package:flutter_skeleton/src/feature/audio/components/current_track_preview.dart';
 import 'package:flutter_skeleton/src/feature/audio/components/player_modal.dart';
+import 'package:flutter_skeleton/src/feature/theme/app_theme.dart';
 
 class MiniPlayer extends StatelessWidget {
   const MiniPlayer({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -20,9 +20,9 @@ class MiniPlayer extends StatelessWidget {
         );
       },
       child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.only(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.playerBackground,
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(6.0),
             topRight: Radius.circular(6.0),
           ),

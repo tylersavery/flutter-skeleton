@@ -28,6 +28,14 @@ class MainDrawer extends BaseComponent {
               },
             ),
             ListTile(
+              title: const Text("Style Guide"),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () {
+                Navigator.of(context).pop();
+                AutoRouter.of(context).push(const StyleguideScreenRoute());
+              },
+            ),
+            ListTile(
               title: const Text("Settings"),
               trailing: const Icon(Icons.chevron_right),
               onTap: () {

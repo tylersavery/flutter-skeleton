@@ -3,6 +3,7 @@ import 'package:flutter_skeleton/src/feature/audio/components/audio_playback_con
 import 'package:flutter_skeleton/src/feature/audio/components/audio_progress_bar.dart';
 import 'package:flutter_skeleton/src/feature/audio/components/buttons/show_playlist_button.dart';
 import 'package:flutter_skeleton/src/feature/audio/components/current_track_preview.dart';
+import 'package:flutter_skeleton/src/feature/theme/app_theme.dart';
 
 class AudioPlayer extends StatelessWidget {
   final bool withTrackInfo;
@@ -14,7 +15,7 @@ class AudioPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black,
+      color: Theme.of(context).colorScheme.playerBackground,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -22,9 +23,10 @@ class AudioPlayer extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                    child: withTrackInfo
-                        ? const CurrentTrackPreview()
-                        : const SizedBox()),
+                  child: withTrackInfo
+                      ? const CurrentTrackPreview()
+                      : const SizedBox(),
+                ),
                 const AudioPlaybackControls(),
                 const Expanded(
                   child: Align(
@@ -34,7 +36,10 @@ class AudioPlayer extends StatelessWidget {
                 )
               ],
             ),
-            const AudioProgressBar(),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 6),
+              child: AudioProgressBar(),
+            ),
           ],
         ),
       ),

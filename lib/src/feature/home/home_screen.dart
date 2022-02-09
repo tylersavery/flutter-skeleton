@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_skeleton/generated/l10n.dart';
-import 'package:flutter_skeleton/src/feature/audio/components/audio_playback_controls.dart';
-import 'package:flutter_skeleton/src/feature/audio/components/audio_player.dart';
+import 'package:flutter_skeleton/src/core/components/buttons.dart';
 import 'package:flutter_skeleton/src/feature/auth/components/auth_button.dart';
 import 'package:flutter_skeleton/src/feature/home/home_provider.dart';
 import 'package:flutter_skeleton/src/feature/placeholder/placeholder_list.dart';
@@ -32,9 +31,10 @@ class HomeScreen extends BaseScreen {
           height: 32,
         ),
         Center(
-          child: OutlinedButton(
+          child: AppButton(
             onPressed: ref.read(homeScreenProvider).handleEdit,
-            child: Text(S.of(context).edit),
+            label: S.of(context).edit,
+            type: AppButtonType.Outlined,
           ),
         ),
       ],
