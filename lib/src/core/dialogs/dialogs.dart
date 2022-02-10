@@ -171,7 +171,7 @@ class PromptModal {
 
                 Navigator.of(context).pop(value.isNotEmpty ? value : null);
               },
-              child: Text(confirmText ?? "Okay"),
+              child: Text(confirmText ?? "Submit"),
             )
           ],
         );

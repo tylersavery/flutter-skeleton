@@ -19,30 +19,33 @@ class QueueModal extends BaseComponent {
         ),
       ),
       child: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                icon: const Icon(Icons.arrow_drop_down),
-              ),
-              Expanded(
-                child: Text(
-                  "Queue",
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.subtitle1,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 8),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(Icons.arrow_drop_down),
                 ),
-              ),
-              IconButton(
-                icon: const Icon(Icons.more_vert),
-                onPressed: () {},
-              ),
-            ]),
-            const QueueList(),
-          ],
+                Expanded(
+                  child: Text(
+                    "Queue",
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.more_vert),
+                  onPressed: () {},
+                ),
+              ]),
+              const QueueList(),
+            ],
+          ),
         ),
       ),
     );
