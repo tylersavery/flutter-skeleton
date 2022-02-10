@@ -17,14 +17,14 @@ class CurrentTrackPreview extends StatelessWidget {
               ? Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: 6.0),
+                      padding: const EdgeInsets.only(right: 12.0),
                       child: SizedBox(
-                        width: 32,
-                        height: 32,
+                        width: 64,
+                        height: 64,
                         child: Image.network(
                           "https://placekitten.com/64/64",
-                          width: 32,
-                          height: 32,
+                          width: 64,
+                          height: 64,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -35,11 +35,15 @@ class CurrentTrackPreview extends StatelessWidget {
                       children: [
                         Text(
                           track.name,
-                          style: const TextStyle(fontSize: 14),
+                          style: Theme.of(context).textTheme.subtitle1,
                         ),
+                        SizedBox(height: 2),
                         Text(
                           track.artistName,
-                          style: Theme.of(context).textTheme.caption,
+                          style: Theme.of(context)
+                              .textTheme
+                              .caption!
+                              .copyWith(fontSize: 14),
                         )
                       ],
                     ),

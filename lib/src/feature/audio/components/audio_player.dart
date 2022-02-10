@@ -17,7 +17,7 @@ class AudioPlayer extends StatelessWidget {
     return Container(
       color: Theme.of(context).colorScheme.playerBackground,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             Row(
@@ -36,8 +36,11 @@ class AudioPlayer extends StatelessWidget {
                 )
               ],
             ),
+            const SizedBox(
+              height: 8,
+            ),
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 6),
+              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
               child: AudioProgressBar(),
             ),
           ],
