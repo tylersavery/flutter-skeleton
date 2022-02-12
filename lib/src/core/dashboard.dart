@@ -6,6 +6,7 @@ import 'package:flutter_skeleton/src/core/app_router.gr.dart';
 import 'package:flutter_skeleton/src/core/base_component.dart';
 import 'package:flutter_skeleton/src/feature/audio/components/audio_player.dart';
 import 'package:flutter_skeleton/src/feature/audio/components/mini_player.dart';
+import 'package:flutter_skeleton/src/feature/brand/components/brand_logo.dart';
 
 class DashboardContainer extends BaseComponent {
   const DashboardContainer({Key? key}) : super(key: key);
@@ -29,13 +30,13 @@ class DashboardContainer extends BaseComponent {
               label: S.of(context).homeScreenTitle,
               icon: const Icon(Icons.home),
             ),
-            BottomNavigationBarItem(
-              label: S.of(context).categoriesScreenTitle,
-              icon: const Icon(Icons.category),
+            const BottomNavigationBarItem(
+              label: "Button 2",
+              icon: Icon(Icons.category),
             ),
-            BottomNavigationBarItem(
-              label: S.of(context).usersScreenTitle,
-              icon: const Icon(Icons.group),
+            const BottomNavigationBarItem(
+              label: "Button 3",
+              icon: Icon(Icons.group),
             ),
           ],
         );
@@ -71,6 +72,13 @@ class DashboardContainer extends BaseComponent {
               padding: const EdgeInsets.all(0),
               child: Row(
                 children: [
+                  const SizedBox(
+                      // width: 8,
+                      ),
+                  const BrandLogo(
+                    maxWidth: 120,
+                    padding: 12,
+                  ),
                   _DesktopNavigationButton(
                     title: S.of(context).homeScreenTitle,
                     icon: Icons.home,
@@ -80,7 +88,7 @@ class DashboardContainer extends BaseComponent {
                     },
                   ),
                   _DesktopNavigationButton(
-                    title: S.of(context).categoriesScreenTitle,
+                    title: "Button 2",
                     icon: Icons.category,
                     isActive: tabsRouter.activeIndex == 1,
                     onPressed: () {
@@ -88,7 +96,7 @@ class DashboardContainer extends BaseComponent {
                     },
                   ),
                   _DesktopNavigationButton(
-                    title: S.of(context).usersScreenTitle,
+                    title: "Button 3",
                     icon: Icons.group,
                     isActive: tabsRouter.activeIndex == 2,
                     onPressed: () {

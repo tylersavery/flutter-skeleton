@@ -68,9 +68,10 @@ class SessionProvider extends StateNotifier<SessionModel> {
             return;
           }
         }
+      } else {
+        await setToken(token);
+        return;
       }
-      await setToken(token);
-      return;
     }
 
     state = state.copyWith(ready: true, isAuthenticated: false);

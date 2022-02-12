@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_skeleton/generated/assets.gen.dart';
 import 'package:flutter_skeleton/src/core/app/session_provider.dart';
 import 'package:flutter_skeleton/src/core/app/singletons.dart';
 import 'package:flutter_skeleton/src/core/app_router.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_skeleton/src/core/app_router.gr.dart';
 import 'package:flutter_skeleton/src/core/base_screen.dart';
 import 'package:flutter_skeleton/src/core/components/buttons.dart';
 import 'package:flutter_skeleton/src/core/components/centered_loader.dart';
+import 'package:flutter_skeleton/src/feature/brand/components/brand_logo.dart';
 
 // this does not actually need to be a stateful widget but including it this way for reference.
 
@@ -62,6 +64,12 @@ class _AuthLandingScreenState extends BaseScreenState<AuthLandingScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          const BrandLogo(
+            maxWidth: 300,
+          ),
+          const SizedBox(
+            height: 150,
+          ),
           AppButton(
             onPressed: () {
               AutoRouter.of(context).replace(const LoginScreenRoute());
