@@ -1,12 +1,14 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_skeleton/src/utils/colors.dart';
 
-const _primaryColor = Color(0xFF5bc39d);
-const _secondaryColor = Color(0xFF306ef6);
-const _successColor = Color(0xFF306ef6);
-const _infoColor = Color(0xFF306ef6);
-const _warningColor = Color(0xFF306ef6);
-const _dangerColor = Color(0xFFBA2121);
+const _primaryColor = Colors.blue;
+const _secondaryColor = Colors.pink;
+const _successColor = Colors.green;
+const _infoColor = Colors.white70;
+const _warningColor = Colors.amber;
+const _dangerColor = Colors.red;
 
 const _textColorDark = Color(0xFF121212);
 const _textColorLight = Color(0xFFf6f6f6);
@@ -18,6 +20,14 @@ enum AppColorVariant {
   // Success,
   // Warning,
   Danger,
+}
+
+enum AppSizeVariant {
+  Xs,
+  Sm,
+  Md,
+  Lg,
+  Xl,
 }
 
 extension CustomColorScheme on ColorScheme {

@@ -4,17 +4,17 @@ import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:flutter_skeleton/generated/assets.gen.dart';
 
 enum _Environment {
-  Develop,
+  Stage,
   Production,
 }
-const _env = _Environment.Develop;
+const _env = _Environment.Stage;
 
 class Env {
   static init() async {
     String? envPath;
     switch (_env) {
-      case _Environment.Develop:
-        envPath = Assets.env.devEnv;
+      case _Environment.Stage:
+        envPath = Assets.env.stageEnv;
         break;
       case _Environment.Production:
         envPath = Assets.env.prodEnv;

@@ -11,6 +11,7 @@ class AppButton extends StatelessWidget {
   final Function()? onPressed;
   final AppButtonType type;
   final AppColorVariant variant;
+  final AppSizeVariant size;
   final bool processing;
   final IconData? icon;
   final bool iconTrails;
@@ -21,6 +22,7 @@ class AppButton extends StatelessWidget {
     this.onPressed,
     this.type = AppButtonType.Elevated,
     this.variant = AppColorVariant.Primary,
+    this.size = AppSizeVariant.Md,
     this.processing = false,
     this.icon,
     this.iconTrails = false,
@@ -85,6 +87,10 @@ class AppButton extends StatelessWidget {
 
   Color _iconColor(context) {
     final _colorScheme = Theme.of(context).colorScheme;
+
+    if (onPressed == null) {
+      return Theme.of(context).disabledColor;
+    }
 
     switch (type) {
       case AppButtonType.Elevated:

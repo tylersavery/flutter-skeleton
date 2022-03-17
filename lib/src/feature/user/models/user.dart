@@ -13,6 +13,7 @@ class User with _$User {
     @JsonKey(defaultValue: "") required String uuid,
     String? email,
     @JsonKey(defaultValue: "") required String name,
+    @JsonKey(defaultValue: "") required String username,
     @JsonKey(name: 'phone_number', defaultValue: "")
         required String phoneNumber,
     @JsonKey(defaultValue: "en") required String language,

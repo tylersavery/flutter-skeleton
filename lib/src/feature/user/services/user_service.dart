@@ -5,7 +5,7 @@ import 'package:flutter_skeleton/src/feature/user/models/user.dart';
 class UserService extends ApiService {
   Future<User> me() async {
     try {
-      final response = await getHttp('/user/current');
+      final response = await getHttp('/user/me');
       return User.fromJson(response);
     } catch (e) {
       rethrow;

@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_skeleton/src/core/dashboard.dart';
-import 'package:flutter_skeleton/src/feature/audio/screens/queue_screen.dart';
 import 'package:flutter_skeleton/src/feature/auth/screens/auth_landing_screen.dart';
 import 'package:flutter_skeleton/src/feature/auth/screens/email_change_confirmation_screen.dart';
 import 'package:flutter_skeleton/src/feature/auth/screens/login_screen.dart';
@@ -46,7 +45,6 @@ const dashboardTabRouter = AutoRoute(
       children: [
         AutoRoute(path: "", page: HomeScreen),
         AutoRoute(path: "placeholder", page: PlaceholderScreen),
-        AutoRoute(path: "queue", page: QueueScreen)
       ],
     ),
     AutoRoute(
