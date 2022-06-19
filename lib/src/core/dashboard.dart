@@ -4,8 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_skeleton/generated/l10n.dart';
 import 'package:flutter_skeleton/src/core/app_router.gr.dart';
 import 'package:flutter_skeleton/src/core/base_component.dart';
-import 'package:flutter_skeleton/src/feature/audio/components/audio_player.dart';
-import 'package:flutter_skeleton/src/feature/audio/components/mini_player.dart';
 import 'package:flutter_skeleton/src/feature/brand/components/brand_logo.dart';
 
 class DashboardContainer extends BaseComponent {
@@ -131,7 +129,6 @@ class _ContentWrapper extends BaseComponent {
         Expanded(
           child: child,
         ),
-        const MiniPlayer()
       ],
     );
   }
@@ -144,7 +141,6 @@ class _ContentWrapper extends BaseComponent {
         Expanded(
           child: child,
         ),
-        const AudioPlayer()
       ],
     );
   }

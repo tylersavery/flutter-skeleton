@@ -28,9 +28,6 @@ dependencies:
   json_annotation: ^4.4.0
   responsive_framework: ^0.1.5
   logger: ^1.1.0
-  just_audio: ^0.9.19
-  audio_service: ^0.18.3
-  audio_video_progress_bar: ^0.10.0
 
 dev_dependencies:
   flutter_test:

@@ -46,7 +46,7 @@ const SEO_ROUTES = [
     name: 'userDetail',
     title: "User Detail",
     description: "User Detail",
-    apiUrl: "https://service.storyplace.com/api/user/:id",
+    apiUrl: "https://service.flutter_skeleton.com/api/user/:id",
     responseToTitle: ['username'],
   ),
   SeoPage(
@@ -54,7 +54,7 @@ const SEO_ROUTES = [
     name: 'categoryDetail',
     title: "Category Detail",
     description: "Category Detail",
-    apiUrl: "https://service.storyplace.com/api/user/:id",
+    apiUrl: "https://service.flutter_skeleton.com/api/user/:id",
     responseToTitle: ['name'],
     responseToImage: ['image', 'asset', 'url'],
   ),

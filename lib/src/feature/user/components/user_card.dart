@@ -18,7 +18,7 @@ class UserCard extends BaseComponent {
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(user.name),
+          child: Text(user.username),
         ),
       ),
     );

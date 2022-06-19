@@ -28,6 +28,8 @@ class _$UserTearOff {
       String? email,
       @JsonKey(defaultValue: "")
           required String name,
+      @JsonKey(defaultValue: "")
+          required String username,
       @JsonKey(name: 'phone_number', defaultValue: "")
           required String phoneNumber,
       @JsonKey(defaultValue: "en")
@@ -45,6 +47,7 @@ class _$UserTearOff {
       uuid: uuid,
       email: email,
       name: name,
+      username: username,
       phoneNumber: phoneNumber,
       language: language,
       isEmailConfirmed: isEmailConfirmed,
@@ -71,6 +74,8 @@ mixin _$User {
   String? get email => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: "")
   String get name => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: "")
+  String get username => throw _privateConstructorUsedError;
   @JsonKey(name: 'phone_number', defaultValue: "")
   String get phoneNumber => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: "en")
@@ -100,6 +105,8 @@ abstract class $UserCopyWith<$Res> {
       String? email,
       @JsonKey(defaultValue: "")
           String name,
+      @JsonKey(defaultValue: "")
+          String username,
       @JsonKey(name: 'phone_number', defaultValue: "")
           String phoneNumber,
       @JsonKey(defaultValue: "en")
@@ -128,6 +135,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     Object? uuid = freezed,
     Object? email = freezed,
     Object? name = freezed,
+    Object? username = freezed,
     Object? phoneNumber = freezed,
     Object? language = freezed,
     Object? isEmailConfirmed = freezed,
@@ -152,6 +160,10 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      username: username == freezed
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
               as String,
       phoneNumber: phoneNumber == freezed
           ? _value.phoneNumber
@@ -197,6 +209,8 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String? email,
       @JsonKey(defaultValue: "")
           String name,
+      @JsonKey(defaultValue: "")
+          String username,
       @JsonKey(name: 'phone_number', defaultValue: "")
           String phoneNumber,
       @JsonKey(defaultValue: "en")
@@ -226,6 +240,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object? uuid = freezed,
     Object? email = freezed,
     Object? name = freezed,
+    Object? username = freezed,
     Object? phoneNumber = freezed,
     Object? language = freezed,
     Object? isEmailConfirmed = freezed,
@@ -250,6 +265,10 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      username: username == freezed
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
               as String,
       phoneNumber: phoneNumber == freezed
           ? _value.phoneNumber
@@ -293,6 +312,8 @@ class _$_User extends _User {
       this.email,
       @JsonKey(defaultValue: "")
           required this.name,
+      @JsonKey(defaultValue: "")
+          required this.username,
       @JsonKey(name: 'phone_number', defaultValue: "")
           required this.phoneNumber,
       @JsonKey(defaultValue: "en")
@@ -320,6 +341,9 @@ class _$_User extends _User {
   @JsonKey(defaultValue: "")
   final String name;
   @override
+  @JsonKey(defaultValue: "")
+  final String username;
+  @override
   @JsonKey(name: 'phone_number', defaultValue: "")
   final String phoneNumber;
   @override
@@ -341,7 +365,7 @@ class _$_User extends _User {
 
   @override
   String toString() {
-    return 'User(id: $id, uuid: $uuid, email: $email, name: $name, phoneNumber: $phoneNumber, language: $language, isEmailConfirmed: $isEmailConfirmed, isPhoneNumberConfirmed: $isPhoneNumberConfirmed, is2faEnabled: $is2faEnabled, createdAt: $createdAt, password: $password)';
+    return 'User(id: $id, uuid: $uuid, email: $email, name: $name, username: $username, phoneNumber: $phoneNumber, language: $language, isEmailConfirmed: $isEmailConfirmed, isPhoneNumberConfirmed: $isPhoneNumberConfirmed, is2faEnabled: $is2faEnabled, createdAt: $createdAt, password: $password)';
   }
 
   @override
@@ -353,6 +377,7 @@ class _$_User extends _User {
             const DeepCollectionEquality().equals(other.uuid, uuid) &&
             const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.username, username) &&
             const DeepCollectionEquality()
                 .equals(other.phoneNumber, phoneNumber) &&
             const DeepCollectionEquality().equals(other.language, language) &&
@@ -373,6 +398,7 @@ class _$_User extends _User {
       const DeepCollectionEquality().hash(uuid),
       const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(username),
       const DeepCollectionEquality().hash(phoneNumber),
       const DeepCollectionEquality().hash(language),
       const DeepCollectionEquality().hash(isEmailConfirmed),
@@ -400,6 +426,8 @@ abstract class _User extends User {
       String? email,
       @JsonKey(defaultValue: "")
           required String name,
+      @JsonKey(defaultValue: "")
+          required String username,
       @JsonKey(name: 'phone_number', defaultValue: "")
           required String phoneNumber,
       @JsonKey(defaultValue: "en")
@@ -426,6 +454,9 @@ abstract class _User extends User {
   @override
   @JsonKey(defaultValue: "")
   String get name;
+  @override
+  @JsonKey(defaultValue: "")
+  String get username;
   @override
   @JsonKey(name: 'phone_number', defaultValue: "")
   String get phoneNumber;
